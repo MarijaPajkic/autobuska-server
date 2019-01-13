@@ -5,8 +5,12 @@
  */
 package com.marijapajkic.service;
 
+import com.marijapajkic.dto.SmenaDto;
 import com.marijapajkic.entiteti.Smena;
+import com.marijapajkic.mapper.SmenaMapper;
+import com.sun.corba.se.impl.encoding.BufferManagerFactory;
 import java.util.List;
+import java.util.stream.Collectors;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -25,7 +29,7 @@ import javax.ws.rs.core.MediaType;
  * @author marij
  */
 @Stateless
-@Path("com.marijapajkic.entiteti.smena")
+@Path("smena")
 public class SmenaFacadeREST extends AbstractFacade<Smena> {
 
     @PersistenceContext(unitName = "AutobuskaWebServicePU")
@@ -36,17 +40,16 @@ public class SmenaFacadeREST extends AbstractFacade<Smena> {
     }
 
     @POST
-    @Override
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public void create(Smena entity) {
-        super.create(entity);
+    public void create(SmenaDto dto) {
+        super.create(SmenaMapper.toEntity(dto));
     }
 
     @PUT
     @Path("{id}")
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public void edit(@PathParam("id") Integer id, Smena entity) {
-        super.edit(entity);
+    public void edit(@PathParam("id") Integer id, SmenaDto dto) {
+        super.edit(SmenaMapper.toEntity(dto));
     }
 
     @DELETE
@@ -58,22 +61,25 @@ public class SmenaFacadeREST extends AbstractFacade<Smena> {
     @GET
     @Path("{id}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public Smena find(@PathParam("id") Integer id) {
-        return super.find(id);
+    public SmenaDto find(@PathParam("id") Integer id) {
+        return SmenaMapper.toDto(super.find(id));
     }
 
     @GET
-    @Override
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public List<Smena> findAll() {
-        return super.findAll();
+    public List<SmenaDto> findAllDtos(){;
+        return super.findAll().stream().map((smenaEntity) -> {
+            return SmenaMapper.toDto(smenaEntity);
+        }).collect(Collectors.toList());
     }
 
     @GET
     @Path("{from}/{to}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public List<Smena> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
-        return super.findRange(new int[]{from, to});
+    public List<SmenaDto> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
+        return super.findRange(new int[]{from, to}).stream().map((smenaEntity) -> {
+            return SmenaMapper.toDto(smenaEntity);
+        }).collect(Collectors.toList());
     }
 
     @GET

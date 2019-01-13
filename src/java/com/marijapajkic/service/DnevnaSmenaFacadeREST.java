@@ -5,8 +5,11 @@
  */
 package com.marijapajkic.service;
 
+import com.marijapajkic.dto.DnevnaSmenaDto;
 import com.marijapajkic.entiteti.DnevnaSmena;
+import com.marijapajkic.mapper.DnevnaSmenaMapper;
 import java.util.List;
+import java.util.stream.Collectors;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -25,7 +28,7 @@ import javax.ws.rs.core.MediaType;
  * @author marij
  */
 @Stateless
-@Path("com.marijapajkic.entiteti.dnevnasmena")
+@Path("dnevnasmena")
 public class DnevnaSmenaFacadeREST extends AbstractFacade<DnevnaSmena> {
 
     @PersistenceContext(unitName = "AutobuskaWebServicePU")
@@ -36,17 +39,16 @@ public class DnevnaSmenaFacadeREST extends AbstractFacade<DnevnaSmena> {
     }
 
     @POST
-    @Override
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public void create(DnevnaSmena entity) {
-        super.create(entity);
+    public void create(DnevnaSmenaDto dto) {
+        super.create(DnevnaSmenaMapper.toEntity(dto));
     }
 
     @PUT
     @Path("{id}")
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public void edit(@PathParam("id") Integer id, DnevnaSmena entity) {
-        super.edit(entity);
+    public void edit(@PathParam("id") Integer id, DnevnaSmenaDto dto) {
+        super.edit(DnevnaSmenaMapper.toEntity(dto));
     }
 
     @DELETE
@@ -58,22 +60,25 @@ public class DnevnaSmenaFacadeREST extends AbstractFacade<DnevnaSmena> {
     @GET
     @Path("{id}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public DnevnaSmena find(@PathParam("id") Integer id) {
-        return super.find(id);
+    public DnevnaSmenaDto find(@PathParam("id") Integer id) {
+        return DnevnaSmenaMapper.toDto(super.find(id));
     }
 
     @GET
-    @Override
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public List<DnevnaSmena> findAll() {
-        return super.findAll();
+    public List<DnevnaSmenaDto> findAllDtos() {
+        return super.findAll().stream().map((dnevnaSmenaEntity) -> {
+            return DnevnaSmenaMapper.toDto(dnevnaSmenaEntity);
+        }).collect(Collectors.toList());
     }
 
     @GET
     @Path("{from}/{to}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public List<DnevnaSmena> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
-        return super.findRange(new int[]{from, to});
+    public List<DnevnaSmenaDto> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
+        return super.findRange(new int[]{from, to}).stream().map((dnevnaSmenaEntity) -> {
+            return DnevnaSmenaMapper.toDto(dnevnaSmenaEntity);
+        }).collect(Collectors.toList());
     }
 
     @GET
@@ -87,5 +92,5 @@ public class DnevnaSmenaFacadeREST extends AbstractFacade<DnevnaSmena> {
     protected EntityManager getEntityManager() {
         return em;
     }
-    
+
 }

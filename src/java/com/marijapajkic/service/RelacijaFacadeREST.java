@@ -5,8 +5,12 @@
  */
 package com.marijapajkic.service;
 
+import com.marijapajkic.dto.RelacijaDto;
 import com.marijapajkic.entiteti.Relacija;
+import com.marijapajkic.mapper.RelacijaMapper;
 import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -25,7 +29,7 @@ import javax.ws.rs.core.MediaType;
  * @author marij
  */
 @Stateless
-@Path("com.marijapajkic.entiteti.relacija")
+@Path("relacija")
 public class RelacijaFacadeREST extends AbstractFacade<Relacija> {
 
     @PersistenceContext(unitName = "AutobuskaWebServicePU")
@@ -36,17 +40,16 @@ public class RelacijaFacadeREST extends AbstractFacade<Relacija> {
     }
 
     @POST
-    @Override
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public void create(Relacija entity) {
-        super.create(entity);
+    public void create(RelacijaDto dto) {
+        super.create(RelacijaMapper.toEntity(dto));
     }
 
     @PUT
     @Path("{id}")
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public void edit(@PathParam("id") Integer id, Relacija entity) {
-        super.edit(entity);
+    public void edit(@PathParam("id") Integer id, RelacijaDto dto) {
+        super.edit(RelacijaMapper.toEntity(dto));
     }
 
     @DELETE
@@ -58,22 +61,25 @@ public class RelacijaFacadeREST extends AbstractFacade<Relacija> {
     @GET
     @Path("{id}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public Relacija find(@PathParam("id") Integer id) {
-        return super.find(id);
+    public RelacijaDto find(@PathParam("id") Integer id) {
+        return RelacijaMapper.toDto(super.find(id));
     }
 
     @GET
-    @Override
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public List<Relacija> findAll() {
-        return super.findAll();
+    public List<RelacijaDto> findAllDtos() {;
+        return super.findAll().stream().map((relacijaEntity) -> {
+            return RelacijaMapper.toDto(relacijaEntity);
+        }).collect(Collectors.toList());
     }
 
     @GET
     @Path("{from}/{to}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public List<Relacija> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
-        return super.findRange(new int[]{from, to});
+    public List<RelacijaDto> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
+        return super.findRange(new int[]{from, to}).stream().map((relacijaEntity) -> {
+            return RelacijaMapper.toDto(relacijaEntity);
+        }).collect(Collectors.toList());
     }
 
     @GET

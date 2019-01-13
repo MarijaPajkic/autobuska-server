@@ -5,8 +5,11 @@
  */
 package com.marijapajkic.service;
 
+import com.marijapajkic.dto.TipSaobracajaDto;
 import com.marijapajkic.entiteti.TipSaobracaja;
+import com.marijapajkic.mapper.TipSaobracajaMapper;
 import java.util.List;
+import java.util.stream.Collectors;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -25,7 +28,7 @@ import javax.ws.rs.core.MediaType;
  * @author marij
  */
 @Stateless
-@Path("com.marijapajkic.entiteti.tipsaobracaja")
+@Path("tipsaobracaja")
 public class TipSaobracajaFacadeREST extends AbstractFacade<TipSaobracaja> {
 
     @PersistenceContext(unitName = "AutobuskaWebServicePU")
@@ -36,17 +39,16 @@ public class TipSaobracajaFacadeREST extends AbstractFacade<TipSaobracaja> {
     }
 
     @POST
-    @Override
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public void create(TipSaobracaja entity) {
-        super.create(entity);
+    public void create(TipSaobracajaDto dto) {
+        super.create(TipSaobracajaMapper.toEntity(dto));
     }
 
     @PUT
     @Path("{id}")
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public void edit(@PathParam("id") Integer id, TipSaobracaja entity) {
-        super.edit(entity);
+    public void edit(@PathParam("id") Integer id, TipSaobracajaDto dto) {
+        super.edit(TipSaobracajaMapper.toEntity(dto));
     }
 
     @DELETE
@@ -58,22 +60,26 @@ public class TipSaobracajaFacadeREST extends AbstractFacade<TipSaobracaja> {
     @GET
     @Path("{id}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public TipSaobracaja find(@PathParam("id") Integer id) {
-        return super.find(id);
+    public TipSaobracajaDto find(@PathParam("id") Integer id) {
+        return TipSaobracajaMapper.toDto(super.find(id));
     }
 
     @GET
-    @Override
+
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public List<TipSaobracaja> findAll() {
-        return super.findAll();
+    public List<TipSaobracajaDto> findAllDtos() {
+        return super.findAll().stream().map((tipsaobracajaEntity) -> {
+            return TipSaobracajaMapper.toDto(tipsaobracajaEntity);
+        }).collect(Collectors.toList());
     }
 
     @GET
     @Path("{from}/{to}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public List<TipSaobracaja> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
-        return super.findRange(new int[]{from, to});
+    public List<TipSaobracajaDto> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
+        return super.findRange(new int[]{from, to}).stream().map((tipsaobracajaEntity) -> {
+            return TipSaobracajaMapper.toDto(tipsaobracajaEntity);
+        }).collect(Collectors.toList());
     }
 
     @GET

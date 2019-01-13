@@ -5,8 +5,12 @@
  */
 package com.marijapajkic.service;
 
+import com.marijapajkic.dto.PlacanjeDto;
 import com.marijapajkic.entiteti.Placanje;
+import com.marijapajkic.mapper.PlacanjeMapper;
 import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -25,7 +29,7 @@ import javax.ws.rs.core.MediaType;
  * @author marij
  */
 @Stateless
-@Path("com.marijapajkic.entiteti.placanje")
+@Path("placanje")
 public class PlacanjeFacadeREST extends AbstractFacade<Placanje> {
 
     @PersistenceContext(unitName = "AutobuskaWebServicePU")
@@ -36,17 +40,16 @@ public class PlacanjeFacadeREST extends AbstractFacade<Placanje> {
     }
 
     @POST
-    @Override
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public void create(Placanje entity) {
-        super.create(entity);
+    public void create(PlacanjeDto dto) {
+        super.create(PlacanjeMapper.toEntity(dto));
     }
 
     @PUT
     @Path("{id}")
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public void edit(@PathParam("id") Integer id, Placanje entity) {
-        super.edit(entity);
+    public void edit(@PathParam("id") Integer id, PlacanjeDto dto) {
+        super.edit(PlacanjeMapper.toEntity(dto));
     }
 
     @DELETE
@@ -58,22 +61,25 @@ public class PlacanjeFacadeREST extends AbstractFacade<Placanje> {
     @GET
     @Path("{id}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public Placanje find(@PathParam("id") Integer id) {
-        return super.find(id);
+    public PlacanjeDto find(@PathParam("id") Integer id) {
+        return PlacanjeMapper.toDto(super.find(id));
     }
 
     @GET
-    @Override
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public List<Placanje> findAll() {
-        return super.findAll();
+    public List<PlacanjeDto> findAllDtos() {;
+        return super.findAll().stream().map((placanjeEntity) -> {
+            return PlacanjeMapper.toDto(placanjeEntity);
+        }).collect(Collectors.toList());
     }
 
     @GET
     @Path("{from}/{to}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public List<Placanje> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
-        return super.findRange(new int[]{from, to});
+    public List<PlacanjeDto> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
+        return super.findRange(new int[]{from, to}).stream().map((placanjeEntity) -> {
+            return PlacanjeMapper.toDto(placanjeEntity);
+        }).collect(Collectors.toList());
     }
 
     @GET

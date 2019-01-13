@@ -5,8 +5,11 @@
  */
 package com.marijapajkic.service;
 
+import com.marijapajkic.dto.StajalisteDto;
 import com.marijapajkic.entiteti.Stajaliste;
+import com.marijapajkic.mapper.StajalisteMapper;
 import java.util.List;
+import java.util.stream.Collectors;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -25,7 +28,7 @@ import javax.ws.rs.core.MediaType;
  * @author marij
  */
 @Stateless
-@Path("com.marijapajkic.entiteti.stajaliste")
+@Path("stajaliste")
 public class StajalisteFacadeREST extends AbstractFacade<Stajaliste> {
 
     @PersistenceContext(unitName = "AutobuskaWebServicePU")
@@ -36,17 +39,16 @@ public class StajalisteFacadeREST extends AbstractFacade<Stajaliste> {
     }
 
     @POST
-    @Override
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public void create(Stajaliste entity) {
-        super.create(entity);
+    public void create(StajalisteDto dto) {
+        super.create(StajalisteMapper.toEntity(dto));
     }
 
     @PUT
     @Path("{id}")
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public void edit(@PathParam("id") Integer id, Stajaliste entity) {
-        super.edit(entity);
+    public void edit(@PathParam("id") Integer id, StajalisteDto dto) {
+        super.edit(StajalisteMapper.toEntity(dto));
     }
 
     @DELETE
@@ -58,22 +60,25 @@ public class StajalisteFacadeREST extends AbstractFacade<Stajaliste> {
     @GET
     @Path("{id}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public Stajaliste find(@PathParam("id") Integer id) {
-        return super.find(id);
+    public StajalisteDto find(@PathParam("id") Integer id) {
+        return StajalisteMapper.toDto(super.find(id));
     }
 
     @GET
-    @Override
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public List<Stajaliste> findAll() {
-        return super.findAll();
+    public List<StajalisteDto> findAllDtos() {
+        return super.findAll().stream().map((stajalisteEntity) -> {
+            return StajalisteMapper.toDto(stajalisteEntity);
+        }).collect(Collectors.toList());
     }
 
     @GET
     @Path("{from}/{to}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public List<Stajaliste> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
-        return super.findRange(new int[]{from, to});
+    public List<StajalisteDto> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
+        return super.findRange(new int[]{from, to}).stream().map((stajalisteEntity) -> {
+            return StajalisteMapper.toDto(stajalisteEntity);
+        }).collect(Collectors.toList());
     }
 
     @GET

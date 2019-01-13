@@ -25,7 +25,7 @@ import javax.ws.rs.core.MediaType;
  * @author marij
  */
 @Stateless
-@Path("com.marijapajkic.entiteti.rezervacija")
+@Path("rezervacija")
 public class RezervacijaFacadeREST extends AbstractFacade<Rezervacija> {
 
     @PersistenceContext(unitName = "AutobuskaWebServicePU")

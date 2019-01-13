@@ -5,8 +5,11 @@
  */
 package com.marijapajkic.service;
 
+import com.marijapajkic.dto.VoznjaDto;
 import com.marijapajkic.entiteti.Voznja;
+import com.marijapajkic.mapper.VoznjaMapper;
 import java.util.List;
+import java.util.stream.Collectors;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -25,7 +28,7 @@ import javax.ws.rs.core.MediaType;
  * @author marij
  */
 @Stateless
-@Path("com.marijapajkic.entiteti.voznja")
+@Path("voznja")
 public class VoznjaFacadeREST extends AbstractFacade<Voznja> {
 
     @PersistenceContext(unitName = "AutobuskaWebServicePU")
@@ -36,17 +39,16 @@ public class VoznjaFacadeREST extends AbstractFacade<Voznja> {
     }
 
     @POST
-    @Override
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public void create(Voznja entity) {
-        super.create(entity);
+    public void create(VoznjaDto dto) {
+        super.create(VoznjaMapper.toEntity(dto));
     }
 
     @PUT
     @Path("{id}")
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public void edit(@PathParam("id") String id, Voznja entity) {
-        super.edit(entity);
+    public void edit(@PathParam("id") String id, VoznjaDto dto) {
+        super.edit(VoznjaMapper.toEntity(dto));
     }
 
     @DELETE
@@ -58,22 +60,25 @@ public class VoznjaFacadeREST extends AbstractFacade<Voznja> {
     @GET
     @Path("{id}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public Voznja find(@PathParam("id") String id) {
-        return super.find(id);
+    public VoznjaDto find(@PathParam("id") String id) {
+        return VoznjaMapper.toDto(super.find(id));
     }
 
     @GET
-    @Override
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public List<Voznja> findAll() {
-        return super.findAll();
+    public List<VoznjaDto> findAllDtos() {
+        return super.findAll().stream().map((voznjaEntity) -> {
+            return VoznjaMapper.toDto(voznjaEntity);
+        }).collect(Collectors.toList());
     }
 
     @GET
     @Path("{from}/{to}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public List<Voznja> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
-        return super.findRange(new int[]{from, to});
+    public List<VoznjaDto> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
+        return super.findRange(new int[]{from, to}).stream().map((voznjaEntity) -> {
+            return VoznjaMapper.toDto(voznjaEntity);
+        }).collect(Collectors.toList());
     }
 
     @GET

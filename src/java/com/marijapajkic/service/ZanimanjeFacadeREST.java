@@ -5,8 +5,12 @@
  */
 package com.marijapajkic.service;
 
+import com.marijapajkic.dto.ZanimanjeDto;
 import com.marijapajkic.entiteti.Zanimanje;
+import com.marijapajkic.mapper.ZanimanjeMapper;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -25,7 +29,7 @@ import javax.ws.rs.core.MediaType;
  * @author marij
  */
 @Stateless
-@Path("zanimanja")
+@Path("zanimanje")
 public class ZanimanjeFacadeREST extends AbstractFacade<Zanimanje> {
 
     @PersistenceContext(unitName = "AutobuskaWebServicePU")
@@ -36,17 +40,16 @@ public class ZanimanjeFacadeREST extends AbstractFacade<Zanimanje> {
     }
 
     @POST
-    @Override
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public void create(Zanimanje entity) {
-        super.create(entity);
+    public void createDto(ZanimanjeDto dto) {
+        super.create(ZanimanjeMapper.toEntity(dto));
     }
 
     @PUT
     @Path("{id}")
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public void edit(@PathParam("id") Integer id, Zanimanje entity) {
-        super.edit(entity);
+    public void edit(@PathParam("id") Integer id, ZanimanjeDto dto) {
+        super.edit(ZanimanjeMapper.toEntity(dto));
     }
 
     @DELETE
@@ -58,22 +61,25 @@ public class ZanimanjeFacadeREST extends AbstractFacade<Zanimanje> {
     @GET
     @Path("{id}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public Zanimanje find(@PathParam("id") Integer id) {
-        return super.find(id);
+    public ZanimanjeDto find(@PathParam("id") Integer id) {
+        return ZanimanjeMapper.toDto(super.find(id));
     }
 
     @GET
-    @Override
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public List<Zanimanje> findAll() {
-        return super.findAll();
+    public List<ZanimanjeDto> findAllDtos() {
+        return super.findAll().stream().map((zanimanjeEntity) -> {
+            return ZanimanjeMapper.toDto(zanimanjeEntity);
+        }).collect(Collectors.toList());
     }
 
     @GET
     @Path("{from}/{to}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public List<Zanimanje> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
-        return super.findRange(new int[]{from, to});
+    public List<ZanimanjeDto> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
+        return super.findRange(new int[]{from, to}).stream().map((zanimanjeEntity) -> {
+            return ZanimanjeMapper.toDto(zanimanjeEntity);
+        }).collect(Collectors.toList());
     }
 
     @GET
@@ -87,5 +93,5 @@ public class ZanimanjeFacadeREST extends AbstractFacade<Zanimanje> {
     protected EntityManager getEntityManager() {
         return em;
     }
-    
+
 }

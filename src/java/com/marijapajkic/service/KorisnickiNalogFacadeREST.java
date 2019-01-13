@@ -5,8 +5,11 @@
  */
 package com.marijapajkic.service;
 
+import com.marijapajkic.dto.KorisnickiNalogDto;
 import com.marijapajkic.entiteti.KorisnickiNalog;
+import com.marijapajkic.mapper.KorisnickiNalogMapper;
 import java.util.List;
+import java.util.stream.Collectors;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -25,7 +28,7 @@ import javax.ws.rs.core.MediaType;
  * @author marij
  */
 @Stateless
-@Path("com.marijapajkic.entiteti.korisnickinalog")
+@Path("korisnickinalog")
 public class KorisnickiNalogFacadeREST extends AbstractFacade<KorisnickiNalog> {
 
     @PersistenceContext(unitName = "AutobuskaWebServicePU")
@@ -36,17 +39,16 @@ public class KorisnickiNalogFacadeREST extends AbstractFacade<KorisnickiNalog> {
     }
 
     @POST
-    @Override
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public void create(KorisnickiNalog entity) {
-        super.create(entity);
+    public void create(KorisnickiNalogDto dto) {
+        super.create(KorisnickiNalogMapper.toEntity(dto));
     }
 
     @PUT
     @Path("{id}")
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public void edit(@PathParam("id") Integer id, KorisnickiNalog entity) {
-        super.edit(entity);
+    public void edit(@PathParam("id") Integer id, KorisnickiNalogDto dto) {
+        super.edit(KorisnickiNalogMapper.toEntity(dto));
     }
 
     @DELETE
@@ -58,22 +60,25 @@ public class KorisnickiNalogFacadeREST extends AbstractFacade<KorisnickiNalog> {
     @GET
     @Path("{id}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public KorisnickiNalog find(@PathParam("id") Integer id) {
-        return super.find(id);
+    public KorisnickiNalogDto find(@PathParam("id") Integer id) {
+        return KorisnickiNalogMapper.toDto(super.find(id));
     }
 
     @GET
-    @Override
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public List<KorisnickiNalog> findAll() {
-        return super.findAll();
+    public List<KorisnickiNalogDto> findAllDtos() {
+        return super.findAll().stream().map((korisnickinalogEntity) -> {
+            return KorisnickiNalogMapper.toDto(korisnickinalogEntity);
+        }).collect(Collectors.toList());
     }
 
     @GET
     @Path("{from}/{to}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public List<KorisnickiNalog> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
-        return super.findRange(new int[]{from, to});
+    public List<KorisnickiNalogDto> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
+        return super.findRange(new int[]{from, to}).stream().map((korisnickinalogEntity) -> {
+            return KorisnickiNalogMapper.toDto(korisnickinalogEntity);
+        }).collect(Collectors.toList());
     }
 
     @GET

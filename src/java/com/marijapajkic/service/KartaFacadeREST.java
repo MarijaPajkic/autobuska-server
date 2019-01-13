@@ -5,8 +5,11 @@
  */
 package com.marijapajkic.service;
 
+import com.marijapajkic.dto.KartaDto;
 import com.marijapajkic.entiteti.Karta;
+import com.marijapajkic.mapper.KartaMapper;
 import java.util.List;
+import java.util.stream.Collectors;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -25,7 +28,7 @@ import javax.ws.rs.core.MediaType;
  * @author marij
  */
 @Stateless
-@Path("com.marijapajkic.entiteti.karta")
+@Path("karta")
 public class KartaFacadeREST extends AbstractFacade<Karta> {
 
     @PersistenceContext(unitName = "AutobuskaWebServicePU")
@@ -36,17 +39,16 @@ public class KartaFacadeREST extends AbstractFacade<Karta> {
     }
 
     @POST
-    @Override
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public void create(Karta entity) {
-        super.create(entity);
+    public void create(KartaDto dto) {
+        super.create(KartaMapper.toEntity(dto));
     }
 
     @PUT
     @Path("{id}")
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public void edit(@PathParam("id") Integer id, Karta entity) {
-        super.edit(entity);
+    public void edit(@PathParam("id") Integer id, KartaDto dto) {
+        super.edit(KartaMapper.toEntity(dto));
     }
 
     @DELETE
@@ -58,22 +60,25 @@ public class KartaFacadeREST extends AbstractFacade<Karta> {
     @GET
     @Path("{id}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public Karta find(@PathParam("id") Integer id) {
-        return super.find(id);
+    public KartaDto find(@PathParam("id") Integer id) {
+        return KartaMapper.toDto(super.find(id));
     }
 
     @GET
-    @Override
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public List<Karta> findAll() {
-        return super.findAll();
+    public List<KartaDto> findAllDtos() {
+        return super.findAll().stream().map((kartaEntity) -> {
+            return KartaMapper.toDto(kartaEntity);
+        }).collect(Collectors.toList());
     }
 
     @GET
     @Path("{from}/{to}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public List<Karta> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
-        return super.findRange(new int[]{from, to});
+    public List<KartaDto> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
+        return super.findRange(new int[]{from, to}).stream().map((kartaEntity) -> {
+            return KartaMapper.toDto(kartaEntity);
+        }).collect(Collectors.toList());
     }
 
     @GET
@@ -87,5 +92,5 @@ public class KartaFacadeREST extends AbstractFacade<Karta> {
     protected EntityManager getEntityManager() {
         return em;
     }
-    
+
 }

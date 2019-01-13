@@ -5,8 +5,12 @@
  */
 package com.marijapajkic.service;
 
+import com.marijapajkic.dto.MedjuStajalisteDto;
 import com.marijapajkic.entiteti.MedjuStajaliste;
+import com.marijapajkic.mapper.MedjuStajalisteMapper;
 import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -25,7 +29,7 @@ import javax.ws.rs.core.MediaType;
  * @author marij
  */
 @Stateless
-@Path("com.marijapajkic.entiteti.medjustajaliste")
+@Path("medjustajaliste")
 public class MedjuStajalisteFacadeREST extends AbstractFacade<MedjuStajaliste> {
 
     @PersistenceContext(unitName = "AutobuskaWebServicePU")
@@ -36,17 +40,16 @@ public class MedjuStajalisteFacadeREST extends AbstractFacade<MedjuStajaliste> {
     }
 
     @POST
-    @Override
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public void create(MedjuStajaliste entity) {
-        super.create(entity);
+    public void create(MedjuStajalisteDto dto) {
+        super.create(MedjuStajalisteMapper.toEntity(dto));
     }
 
     @PUT
     @Path("{id}")
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public void edit(@PathParam("id") Integer id, MedjuStajaliste entity) {
-        super.edit(entity);
+    public void edit(@PathParam("id") Integer id, MedjuStajalisteDto dto) {
+        super.edit(MedjuStajalisteMapper.toEntity(dto));
     }
 
     @DELETE
@@ -58,22 +61,25 @@ public class MedjuStajalisteFacadeREST extends AbstractFacade<MedjuStajaliste> {
     @GET
     @Path("{id}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public MedjuStajaliste find(@PathParam("id") Integer id) {
-        return super.find(id);
+    public MedjuStajalisteDto find(@PathParam("id") Integer id) {
+        return MedjuStajalisteMapper.toDto(super.find(id));
     }
 
     @GET
-    @Override
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public List<MedjuStajaliste> findAll() {
-        return super.findAll();
+    public List<MedjuStajalisteDto> findAllDtos() {
+        return super.findAll().stream().map((medjustajalisteEntity) -> {
+            return MedjuStajalisteMapper.toDto(medjustajalisteEntity);
+        }).collect(Collectors.toList());
     }
 
     @GET
     @Path("{from}/{to}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public List<MedjuStajaliste> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
-        return super.findRange(new int[]{from, to});
+    public List<MedjuStajalisteDto> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
+        return super.findRange(new int[]{from, to}).stream().map((medjustajalisteEntity) -> {
+            return MedjuStajalisteMapper.toDto(medjustajalisteEntity);
+        }).collect(Collectors.toList());
     }
 
     @GET
