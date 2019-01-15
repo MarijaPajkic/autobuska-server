@@ -41,7 +41,15 @@ public class ZaposlenFacadeREST extends AbstractFacade<Zaposlen> {
     @POST
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public void create(ZaposlenDto dto) {
-        super.create(ZaposlenMapper.toEntity(dto));
+        for(int i = 0; i < 20; i++) {
+            System.out.println("");
+        }
+        System.out.println(dto.toString());
+        for(int i = 0; i < 20; i++) {
+            System.out.println("");
+        }
+        Zaposlen entity = ZaposlenMapper.toEntity(dto);
+        super.create(entity);
     }
 
     @PUT

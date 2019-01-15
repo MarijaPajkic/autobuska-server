@@ -57,12 +57,12 @@ public class Zaposlen implements Serializable {
     @Column(name = "PREZIME")
     private String prezime;
     @Column(name = "JMBG")
-    private Integer jmbg;
+    private String jmbg;
     @Size(max = 1024)
     @Column(name = "ADRESAPREBIVALISTA")
     private String adresaprebivalista;
     @Column(name = "KONTAKTTELEFON")
-    private Integer kontakttelefon;
+    private String kontakttelefon;
     @Column(name = "DATUMZAPOSLJAVANJA")
     @Temporal(TemporalType.DATE)
     private Date datumzaposljavanja;
@@ -114,11 +114,11 @@ public class Zaposlen implements Serializable {
         this.prezime = prezime;
     }
 
-    public Integer getJmbg() {
+    public String getJmbg() {
         return jmbg;
     }
 
-    public void setJmbg(Integer jmbg) {
+    public void setJmbg(String jmbg) {
         this.jmbg = jmbg;
     }
 
@@ -130,11 +130,11 @@ public class Zaposlen implements Serializable {
         this.adresaprebivalista = adresaprebivalista;
     }
 
-    public Integer getKontakttelefon() {
+    public String getKontakttelefon() {
         return kontakttelefon;
     }
 
-    public void setKontakttelefon(Integer kontakttelefon) {
+    public void setKontakttelefon(String kontakttelefon) {
         this.kontakttelefon = kontakttelefon;
     }
 
@@ -230,5 +230,5 @@ public class Zaposlen implements Serializable {
     public String toString() {
         return "com.marijapajkic.entiteti.Zaposlen[ zaposlenId=" + zaposlenId + " ]";
     }
-    
+
 }

@@ -7,6 +7,7 @@ package com.marijapajkic.mapper;
 
 import com.marijapajkic.dto.VoziloDto;
 import com.marijapajkic.entiteti.Vozilo;
+import java.util.HashSet;
 import java.util.stream.Collectors;
 
 /**
@@ -16,26 +17,46 @@ import java.util.stream.Collectors;
 public class VoziloMapper {
 
     public static VoziloDto toDto(Vozilo entity) {
+        if (entity == null) {
+            return null;
+        }
         VoziloDto dto = new VoziloDto();
         dto.setVoziloId(Short.parseShort("" + entity.getVoziloId()));
         dto.setRegistracija(entity.getRegistracija());
         dto.setBrojsedista(Short.parseShort("" + entity.getBrojsedista()));
-        dto.setVoznjaCollection(entity.getVoznjaCollection().stream().map((voznjaEntity) -> {
-            return VoznjaMapper.toDto(voznjaEntity);
-        }).collect(Collectors.toSet()));
+        if (entity.getVoznjaCollection() != null && !entity.getVoznjaCollection().isEmpty()) {
+            dto.setVoznjaCollection(entity.getVoznjaCollection().stream().map((voznjaEntity) -> {
+                return VoznjaMapper.toDto(voznjaEntity);
+            }).collect(Collectors.toSet()));
+        } else {
+            dto.setVoznjaCollection(new HashSet<>());
+        }
+        if (entity.getZaposlenId() != null) {
+            entity.getZaposlenId().setVoziloCollection(null);
+        }
         dto.setZaposlen(ZaposlenMapper.toDto(entity.getZaposlenId()));
 
         return dto;
     }
 
     public static Vozilo toEntity(VoziloDto dto) {
+        if (dto == null) {
+            return null;
+        }
         Vozilo entity = new Vozilo();
         entity.setVoziloId((int) dto.getVoziloId());
         entity.setRegistracija(dto.getRegistracija());
         entity.setBrojsedista((int) dto.getBrojsedista());
-        entity.setVoznjaCollection(dto.getVoznjaCollection().stream().map((voznjaDto) -> {
-            return VoznjaMapper.toEntity(voznjaDto);
-        }).collect(Collectors.toSet()));
+        if (dto.getVoznjaCollection() != null && !dto.getVoznjaCollection().isEmpty()) {
+            entity.setVoznjaCollection(dto.getVoznjaCollection().stream().map((voznjaDto) -> {
+                return VoznjaMapper.toEntity(voznjaDto);
+            }).collect(Collectors.toSet()));
+        } else {
+            entity.setVoznjaCollection(new HashSet<>());
+        }
+        if (dto.getZaposlen() != null) {
+            dto.getZaposlen().setVoziloCollection(null);
+        }
         entity.setZaposlenId(ZaposlenMapper.toEntity(dto.getZaposlen()));
 
         return entity;

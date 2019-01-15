@@ -8,9 +8,9 @@ public class ZaposlenDto implements Serializable {
     private short zaposlenId;
     private String ime;
     private String prezime;
-    private short jmbg;
+    private String jmbg;
     private String adresaprebivalista;
-    private short kontakttelefon;
+    private String kontakttelefon;
     private java.util.Date datumzaposljavanja;
     private java.lang.Boolean status;
     private Set<KorisnickiNalogDto> korisnickiNalogCollection;
@@ -23,7 +23,7 @@ public class ZaposlenDto implements Serializable {
     public ZaposlenDto() {
     }
 
-    public ZaposlenDto(short zaposlenId, String ime, String prezime, short jmbg, String adresaprebivalista, short kontakttelefon, java.util.Date datumzaposljavanja, java.lang.Boolean status, Set<KorisnickiNalogDto> korisnickiNalogCollection, KorisnickiNalogDto korisnickinalogId, ZanimanjeDto zanimanjeId, Set<VoznjaDto> voznjaCollection, Set<DnevnaSmenaDto> dnevnaSmenaCollection, Set<VoziloDto> voziloCollection) {
+    public ZaposlenDto(short zaposlenId, String ime, String prezime, String jmbg, String adresaprebivalista, String kontakttelefon, java.util.Date datumzaposljavanja, java.lang.Boolean status, Set<KorisnickiNalogDto> korisnickiNalogCollection, KorisnickiNalogDto korisnickinalogId, ZanimanjeDto zanimanjeId, Set<VoznjaDto> voznjaCollection, Set<DnevnaSmenaDto> dnevnaSmenaCollection, Set<VoziloDto> voziloCollection) {
         this.zaposlenId = zaposlenId;
         this.ime = ime;
         this.prezime = prezime;
@@ -65,11 +65,11 @@ public class ZaposlenDto implements Serializable {
         this.prezime = prezime;
     }
 
-    public short getJmbg() {
+    public String getJmbg() {
         return jmbg;
     }
 
-    public void setJmbg(short jmbg) {
+    public void setJmbg(String jmbg) {
         this.jmbg = jmbg;
     }
 
@@ -81,11 +81,11 @@ public class ZaposlenDto implements Serializable {
         this.adresaprebivalista = adresaprebivalista;
     }
 
-    public short getKontakttelefon() {
+    public String getKontakttelefon() {
         return kontakttelefon;
     }
 
-    public void setKontakttelefon(short kontakttelefon) {
+    public void setKontakttelefon(String kontakttelefon) {
         this.kontakttelefon = kontakttelefon;
     }
 
@@ -151,5 +151,12 @@ public class ZaposlenDto implements Serializable {
 
     public void setVoziloCollection(Set<VoziloDto> voziloCollection) {
         this.voziloCollection = voziloCollection;
+    }
+
+    @Override
+    public String toString() {
+        String ret = "";
+        ret += "Ime: " + ime + "\t\tPrezime: " + prezime + "\t\tZanimanje: " + zanimanje.getNazivzanimanja();
+        return ret;
     }
 }

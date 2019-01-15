@@ -7,6 +7,7 @@ package com.marijapajkic.mapper;
 
 import com.marijapajkic.dto.ZanimanjeDto;
 import com.marijapajkic.entiteti.Zanimanje;
+import java.util.HashSet;
 import java.util.stream.Collectors;
 
 /**
@@ -16,23 +17,37 @@ import java.util.stream.Collectors;
 public class ZanimanjeMapper {
 
     public static ZanimanjeDto toDto(Zanimanje entity) {
+        if (entity == null) {
+            return null;
+        }
         ZanimanjeDto dto = new ZanimanjeDto();
         dto.setZanimanjeId(Short.parseShort("" + entity.getZanimanjeId()));
         dto.setNazivzanimanja(entity.getNazivzanimanja());
-        dto.setZaposlenCollection(entity.getZaposlenCollection().stream().map((zaposlenEntity) -> {
-            return ZaposlenMapper.toDto(zaposlenEntity);
-        }).collect(Collectors.toSet()));
+        if (entity.getZaposlenCollection() != null && !entity.getZaposlenCollection().isEmpty()) {
+            dto.setZaposlenCollection(entity.getZaposlenCollection().stream().map((zaposlenEntity) -> {
+                return ZaposlenMapper.toDto(zaposlenEntity);
+            }).collect(Collectors.toSet()));
+        } else {
+            dto.setZaposlenCollection(new HashSet<>());
+        }
 
         return dto;
     }
 
     public static Zanimanje toEntity(ZanimanjeDto dto) {
+        if (dto == null) {
+            return null;
+        }
         Zanimanje entity = new Zanimanje();
         entity.setZanimanjeId((int) dto.getZanimanjeId());
         entity.setNazivzanimanja(dto.getNazivzanimanja());
-        entity.setZaposlenCollection(dto.getZaposlenCollection().stream().map((zaposlenDto) -> {
-            return ZaposlenMapper.toEntity(zaposlenDto);
-        }).collect(Collectors.toSet()));
+        if (dto.getZaposlenCollection() != null && !dto.getZaposlenCollection().isEmpty()) {
+            entity.setZaposlenCollection(dto.getZaposlenCollection().stream().map((zaposlenDto) -> {
+                return ZaposlenMapper.toEntity(zaposlenDto);
+            }).collect(Collectors.toSet()));
+        } else {
+            entity.setZaposlenCollection(new HashSet<>());
+        }
 
         return entity;
     }
