@@ -23,7 +23,7 @@ public class KorisnickiNalogMapper {
         KorisnickiNalogDto dto = new KorisnickiNalogDto();
         dto.setKorisnickinalogId(Short.parseShort("" + entity.getKorisnickinalogId()));
         dto.setKorisnickoime(entity.getKorisnickoime());
-        dto.setKorisnckiemail(entity.getKorisnckiemail());
+        dto.setKorisnickiemail(entity.getKorisnickiemail());
         dto.setKorisnickalozinka(entity.getKorisnickalozinka());
         if (entity.getZaposlenId() != null) {
             entity.getZaposlenId().setKorisnickiNalogCollection(null);
@@ -48,7 +48,7 @@ public class KorisnickiNalogMapper {
         KorisnickiNalog entity = new KorisnickiNalog();
         entity.setKorisnickinalogId((int) dto.getKorisnickinalogId());
         entity.setKorisnickoime(dto.getKorisnickoime());
-        entity.setKorisnckiemail(dto.getKorisnckiemail());
+        entity.setKorisnickiemail(dto.getKorisnickiemail());
         entity.setKorisnickalozinka(dto.getKorisnickalozinka());
         if (dto.getZaposlen() != null) {
             dto.getZaposlen().setKorisnickiNalogCollection(null);

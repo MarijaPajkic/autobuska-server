@@ -44,7 +44,7 @@ public class VoziloFacadeREST extends AbstractFacade<Vozilo> {
         super.create(VoziloMapper.toEntity(dto));
     }
 
-    @PUT
+    @POST
     @Path("{id}")
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public void edit(@PathParam("id") Integer id, VoziloDto dto) {

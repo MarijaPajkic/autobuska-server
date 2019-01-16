@@ -5,9 +5,13 @@
  */
 package com.marijapajkic.service;
 
+import com.marijapajkic.dto.AuthRequestDto;
+import com.marijapajkic.dto.AuthResponseDto;
 import com.marijapajkic.dto.KorisnickiNalogDto;
 import com.marijapajkic.entiteti.KorisnickiNalog;
+import com.marijapajkic.entiteti.Zaposlen;
 import com.marijapajkic.mapper.KorisnickiNalogMapper;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.ejb.Stateless;
@@ -44,7 +48,7 @@ public class KorisnickiNalogFacadeREST extends AbstractFacade<KorisnickiNalog> {
         super.create(KorisnickiNalogMapper.toEntity(dto));
     }
 
-    @PUT
+    @POST
     @Path("{id}")
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public void edit(@PathParam("id") Integer id, KorisnickiNalogDto dto) {
@@ -92,5 +96,42 @@ public class KorisnickiNalogFacadeREST extends AbstractFacade<KorisnickiNalog> {
     protected EntityManager getEntityManager() {
         return em;
     }
-    
+
+    @POST
+    @Path("auth")
+    @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public AuthResponseDto checkAuthentication(AuthRequestDto request) {
+        System.out.println("CheckAuthentication");
+        List<KorisnickiNalog> resultList
+                = (List<KorisnickiNalog>) em.createNamedQuery("KorisnickiNalog.findByKorisnickoimeAndKorisnickalozinka")
+                        .setParameter("korisnickoime", request.getUsername())
+                        .setParameter("korisnickalozinka", request.getPassword()).getResultList();
+        if (resultList == null || resultList.isEmpty()) {
+            System.out.println("Ne postoji takav korisnik. " + request.getUsername() + " : " + request.getPassword());
+            return new AuthResponseDto("anonymous", "");
+        }
+        AuthResponseDto response = new AuthResponseDto();
+        KorisnickiNalog nalog = resultList.get(0);
+        Zaposlen zaposlen = null;
+        if (nalog.getZaposlenId() != null) {
+            zaposlen = nalog.getZaposlenId();
+        } else {
+            if (!nalog.getZaposlenCollection().isEmpty()) {
+                zaposlen = (Zaposlen) nalog.getZaposlenCollection().toArray()[0];
+            } else {
+                System.out.println("Nije zaposlen, nema collection.");
+                return new AuthResponseDto("anonymous", "");
+            }
+        }
+        if (zaposlen == null) {
+            System.out.println("Nije zaposlen.");
+            return new AuthResponseDto("anonymous", "");
+        }
+        if (zaposlen.getZanimanjeId() != null) {
+            return new AuthResponseDto(nalog.getKorisnickoime(), zaposlen.getZanimanjeId().getNazivzanimanja());
+        }
+        System.out.println("Nema zanimanje.");
+        return new AuthResponseDto("anonymous", "");
+    }
 }

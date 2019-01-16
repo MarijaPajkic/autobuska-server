@@ -36,6 +36,8 @@ public class RelacijaMapper {
         dto.setKrajnjestajaliste(StajalisteMapper.toDto(entity.getKrajnjestajalisteId()));
         if (entity.getMedjuStajalisteCollection() != null && !entity.getMedjuStajalisteCollection().isEmpty()) {
             dto.setMedjuStajalisteCollection(entity.getMedjuStajalisteCollection().stream().map((medjuStajalisteEntity) -> {
+                medjuStajalisteEntity.setRelacijaId(null);
+//                medjuStajalisteEntity.setStajalisteId(null);
                 return MedjuStajalisteMapper.toDto(medjuStajalisteEntity);
             }).collect(Collectors.toSet()));
         } else {

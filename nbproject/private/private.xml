@@ -3,7 +3,32 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/Users/marij/Documents/NetBeansProjects/AutobuskaWebService/src/java/com/marijapajkic/mapper/ZanimanjeMapper.java</file>
+            <file>file:/C:/Users/marij/Documents/NetBeansProjects/AutobuskaWebService/src/java/com/marijapajkic/dto/TipSaobracajaDto.java</file>
+            <file>file:/C:/Users/marij/Documents/NetBeansProjects/AutobuskaWebService/src/java/com/marijapajkic/service/RelacijaFacadeREST.java</file>
+            <file>file:/C:/Users/marij/Documents/NetBeansProjects/AutobuskaWebService/src/java/com/marijapajkic/mapper/KorisnickiNalogMapper.java</file>
+            <file>file:/C:/Users/marij/Documents/NetBeansProjects/AutobuskaWebService/src/java/com/marijapajkic/service/TipSaobracajaFacadeREST.java</file>
+            <file>file:/C:/Users/marij/Documents/NetBeansProjects/AutobuskaWebService/src/java/com/marijapajkic/dto/RelacijaDto.java</file>
             <file>file:/C:/Users/marij/Documents/NetBeansProjects/AutobuskaWebService/src/java/com/marijapajkic/entiteti/Zaposlen.java</file>
+            <file>file:/C:/Users/marij/Documents/NetBeansProjects/AutobuskaWebService/src/java/com/marijapajkic/mapper/SmenaMapper.java</file>
+            <file>file:/C:/Users/marij/Documents/NetBeansProjects/AutobuskaWebService/src/java/com/marijapajkic/dto/ZaposlenDto.java</file>
+            <file>file:/C:/Users/marij/Documents/NetBeansProjects/AutobuskaWebService/src/java/com/marijapajkic/mapper/ZaposlenMapper.java</file>
+            <file>file:/C:/Users/marij/Documents/NetBeansProjects/AutobuskaWebService/src/java/com/marijapajkic/mapper/VoziloMapper.java</file>
+            <file>file:/C:/Users/marij/Documents/NetBeansProjects/AutobuskaWebService/src/java/com/marijapajkic/mapper/PlacanjeMapper.java</file>
+            <file>file:/C:/Users/marij/Documents/NetBeansProjects/AutobuskaWebService/src/java/com/marijapajkic/dto/KorisnickiNalogDto.java</file>
+            <file>file:/C:/Users/marij/Documents/NetBeansProjects/AutobuskaWebService/src/java/com/marijapajkic/mapper/RelacijaMapper.java</file>
+            <file>file:/C:/Users/marij/Documents/NetBeansProjects/AutobuskaWebService/src/java/com/marijapajkic/dto/ZanimanjeDto.java</file>
+            <file>file:/C:/Users/marij/Documents/NetBeansProjects/AutobuskaWebService/src/java/com/marijapajkic/mapper/StajalisteMapper.java</file>
+            <file>file:/C:/Users/marij/Documents/NetBeansProjects/AutobuskaWebService/src/java/com/marijapajkic/mapper/MedjuStajalisteMapper.java</file>
+            <file>file:/C:/Users/marij/Documents/NetBeansProjects/AutobuskaWebService/src/java/com/marijapajkic/entiteti/KorisnickiNalog.java</file>
+            <file>file:/C:/Users/marij/Documents/NetBeansProjects/AutobuskaWebService/src/java/com/marijapajkic/mapper/VoznjaMapper.java</file>
+            <file>file:/C:/Users/marij/Documents/NetBeansProjects/AutobuskaWebService/src/java/com/marijapajkic/mapper/DnevnaSmenaMapper.java</file>
+            <file>file:/C:/Users/marij/Documents/NetBeansProjects/AutobuskaWebService/src/java/com/marijapajkic/mapper/KartaMapper.java</file>
+            <file>file:/C:/Users/marij/Documents/NetBeansProjects/AutobuskaWebService/src/java/com/marijapajkic/service/ZaposlenFacadeREST.java</file>
+            <file>file:/C:/Users/marij/Documents/NetBeansProjects/AutobuskaWebService/src/java/com/marijapajkic/mapper/RezervacijaMapper.java</file>
+            <file>file:/C:/Users/marij/Documents/NetBeansProjects/AutobuskaWebService/src/java/com/marijapajkic/entiteti/Zanimanje.java</file>
+            <file>file:/C:/Users/marij/Documents/NetBeansProjects/AutobuskaWebService/src/java/com/marijapajkic/mapper/TipSaobracajaMapper.java</file>
+            <file>file:/C:/Users/marij/Documents/NetBeansProjects/AutobuskaWebService/src/java/com/marijapajkic/entiteti/TipSaobracaja.java</file>
         </group>
     </open-files>
 </project-private>

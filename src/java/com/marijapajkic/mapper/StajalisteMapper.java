@@ -25,6 +25,9 @@ public class StajalisteMapper {
         dto.setNazivstajalista(entity.getNazivstajalista());
         if (entity.getRelacijaCollection1() != null && !entity.getRelacijaCollection1().isEmpty()) {
             dto.setRelacijaCollection1(entity.getRelacijaCollection1().stream().map((relacijaEntity1) -> {
+                relacijaEntity1.setPolaznostajalisteId(null);
+                relacijaEntity1.setKrajnjestajalisteId(null);
+                relacijaEntity1.setMedjuStajalisteCollection(null);
                 return RelacijaMapper.toDto(relacijaEntity1);
             }).collect(Collectors.toSet()));
         } else {
@@ -39,6 +42,7 @@ public class StajalisteMapper {
         }
         if (entity.getMedjuStajalisteCollection() != null && !entity.getMedjuStajalisteCollection().isEmpty()) {
             dto.setMedjuStajalisteCollection(entity.getMedjuStajalisteCollection().stream().map((medjuStajalisteEntity) -> {
+                medjuStajalisteEntity.setStajalisteId(null);
                 return MedjuStajalisteMapper.toDto(medjuStajalisteEntity);
             }).collect(Collectors.toSet()));
         } else {
@@ -57,6 +61,8 @@ public class StajalisteMapper {
         entity.setNazivstajalista(dto.getNazivstajalista());
         if (dto.getRelacijaCollection1() != null && !dto.getRelacijaCollection1().isEmpty()) {
             entity.setRelacijaCollection1(dto.getRelacijaCollection1().stream().map((relacijaDto1) -> {
+                relacijaDto1.setPolaznostajaliste(null);
+                relacijaDto1.setKrajnjestajaliste(null);
                 return RelacijaMapper.toEntity(relacijaDto1);
             }).collect(Collectors.toSet()));
         } else {
@@ -71,6 +77,7 @@ public class StajalisteMapper {
         }
         if (dto.getMedjuStajalisteCollection() != null && !dto.getMedjuStajalisteCollection().isEmpty()) {
             entity.setMedjuStajalisteCollection(dto.getMedjuStajalisteCollection().stream().map((medjuStajalisteDto) -> {
+                medjuStajalisteDto.setStajaliste(null);
                 return MedjuStajalisteMapper.toEntity(medjuStajalisteDto);
             }).collect(Collectors.toSet()));
         } else {

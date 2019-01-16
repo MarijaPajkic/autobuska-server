@@ -44,7 +44,7 @@ public class KartaFacadeREST extends AbstractFacade<Karta> {
         super.create(KartaMapper.toEntity(dto));
     }
 
-    @PUT
+    @POST
     @Path("{id}")
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public void edit(@PathParam("id") Integer id, KartaDto dto) {

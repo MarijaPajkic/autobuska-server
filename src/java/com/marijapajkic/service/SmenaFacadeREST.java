@@ -45,7 +45,7 @@ public class SmenaFacadeREST extends AbstractFacade<Smena> {
         super.create(SmenaMapper.toEntity(dto));
     }
 
-    @PUT
+    @POST
     @Path("{id}")
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public void edit(@PathParam("id") Integer id, SmenaDto dto) {

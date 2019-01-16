@@ -7,7 +7,7 @@ public class KorisnickiNalogDto implements Serializable {
 
     private short korisnickinalogId;
     private String korisnickoime;
-    private String korisnckiemail;
+    private String korisnickiemail;
     private String korisnickalozinka;
     private ZaposlenDto zaposlen;
     private Set<ZaposlenDto> zaposlenCollection;
@@ -18,7 +18,7 @@ public class KorisnickiNalogDto implements Serializable {
     public KorisnickiNalogDto(short korisnickinalogId, String korisnickoime, String korisnckiemail, String korisnickalozinka, ZaposlenDto zaposlenId, Set<ZaposlenDto> zaposlenCollection) {
         this.korisnickinalogId = korisnickinalogId;
         this.korisnickoime = korisnickoime;
-        this.korisnckiemail = korisnckiemail;
+        this.korisnickiemail = korisnckiemail;
         this.korisnickalozinka = korisnickalozinka;
         this.zaposlen = zaposlenId;
         this.zaposlenCollection = zaposlenCollection;
@@ -41,12 +41,12 @@ public class KorisnickiNalogDto implements Serializable {
         this.korisnickoime = korisnickoime;
     }
 
-    public String getKorisnckiemail() {
-        return korisnckiemail;
+    public String getKorisnickiemail() {
+        return korisnickiemail;
     }
 
-    public void setKorisnckiemail(String korisnckiemail) {
-        this.korisnckiemail = korisnckiemail;
+    public void setKorisnickiemail(String korisnickiemail) {
+        this.korisnickiemail = korisnickiemail;
     }
 
     public String getKorisnickalozinka() {

@@ -44,7 +44,7 @@ public class TipSaobracajaFacadeREST extends AbstractFacade<TipSaobracaja> {
         super.create(TipSaobracajaMapper.toEntity(dto));
     }
 
-    @PUT
+    @POST
     @Path("{id}")
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public void edit(@PathParam("id") Integer id, TipSaobracajaDto dto) {

@@ -33,7 +33,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "KorisnickiNalog.findAll", query = "SELECT k FROM KorisnickiNalog k")
     , @NamedQuery(name = "KorisnickiNalog.findByKorisnickinalogId", query = "SELECT k FROM KorisnickiNalog k WHERE k.korisnickinalogId = :korisnickinalogId")
     , @NamedQuery(name = "KorisnickiNalog.findByKorisnickoime", query = "SELECT k FROM KorisnickiNalog k WHERE k.korisnickoime = :korisnickoime")
-    , @NamedQuery(name = "KorisnickiNalog.findByKorisnckiemail", query = "SELECT k FROM KorisnickiNalog k WHERE k.korisnckiemail = :korisnckiemail")
+    , @NamedQuery(name = "KorisnickiNalog.findByKorisnickoimeAndKorisnickalozinka", query = "SELECT k FROM KorisnickiNalog k WHERE k.korisnickoime = :korisnickoime AND k.korisnickalozinka = :korisnickalozinka")
+    , @NamedQuery(name = "KorisnickiNalog.findByKorisnickiemail", query = "SELECT k FROM KorisnickiNalog k WHERE k.korisnickiemail = :korisnickiemail")
     , @NamedQuery(name = "KorisnickiNalog.findByKorisnickalozinka", query = "SELECT k FROM KorisnickiNalog k WHERE k.korisnickalozinka = :korisnickalozinka")})
 public class KorisnickiNalog implements Serializable {
 
@@ -47,8 +48,8 @@ public class KorisnickiNalog implements Serializable {
     @Column(name = "KORISNICKOIME")
     private String korisnickoime;
     @Size(max = 1024)
-    @Column(name = "KORISNCKIEMAIL")
-    private String korisnckiemail;
+    @Column(name = "KORISNICKIEMAIL")
+    private String korisnickiemail;
     @Size(max = 1024)
     @Column(name = "KORISNICKALOZINKA")
     private String korisnickalozinka;
@@ -81,12 +82,12 @@ public class KorisnickiNalog implements Serializable {
         this.korisnickoime = korisnickoime;
     }
 
-    public String getKorisnckiemail() {
-        return korisnckiemail;
+    public String getKorisnickiemail() {
+        return korisnickiemail;
     }
 
-    public void setKorisnckiemail(String korisnckiemail) {
-        this.korisnckiemail = korisnckiemail;
+    public void setKorisnickiemail(String korisnickiemail) {
+        this.korisnickiemail = korisnickiemail;
     }
 
     public String getKorisnickalozinka() {

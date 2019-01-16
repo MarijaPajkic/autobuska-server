@@ -21,7 +21,7 @@ public class TipSaobracajaMapper {
             return null;
         }
         TipSaobracajaDto dto = new TipSaobracajaDto();
-        dto.setTipsaobracajaId(Short.parseShort(" " + entity.getTipsaobracajaNaziv()));
+        dto.setTipsaobracajaId(Short.parseShort("" + entity.getTipsaobracajaId()));
         dto.setTipsaobracajaNaziv(entity.getTipsaobracajaNaziv());
         if (entity.getRelacijaCollection() != null && !entity.getRelacijaCollection().isEmpty()) {
             dto.setRelacijaCollection(entity.getRelacijaCollection().stream().map((relacijaEntity) -> {

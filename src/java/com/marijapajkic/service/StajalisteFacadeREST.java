@@ -44,7 +44,7 @@ public class StajalisteFacadeREST extends AbstractFacade<Stajaliste> {
         super.create(StajalisteMapper.toEntity(dto));
     }
 
-    @PUT
+    @POST
     @Path("{id}")
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public void edit(@PathParam("id") Integer id, StajalisteDto dto) {
