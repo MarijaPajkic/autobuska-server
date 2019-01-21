@@ -15,6 +15,15 @@ public class KorisnickiNalogDto implements Serializable {
     public KorisnickiNalogDto() {
     }
 
+    public KorisnickiNalogDto(short korisnickinalogId) {
+        this.korisnickinalogId = korisnickinalogId;
+    }
+
+    public KorisnickiNalogDto(short korisnickinalogId, String korisnickoime) {
+        this.korisnickinalogId = korisnickinalogId;
+        this.korisnickoime = korisnickoime;
+    }
+    
     public KorisnickiNalogDto(short korisnickinalogId, String korisnickoime, String korisnckiemail, String korisnickalozinka, ZaposlenDto zaposlenId, Set<ZaposlenDto> zaposlenCollection) {
         this.korisnickinalogId = korisnickinalogId;
         this.korisnickoime = korisnickoime;

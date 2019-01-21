@@ -5,9 +5,14 @@
  */
 package com.marijapajkic.mapper;
 
+import com.marijapajkic.dto.VoziloDto;
 import com.marijapajkic.dto.ZaposlenDto;
+import com.marijapajkic.entiteti.Vozilo;
+import com.marijapajkic.entiteti.Zanimanje;
 import com.marijapajkic.entiteti.Zaposlen;
+import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.stream.Collectors;
 
 /**
@@ -29,7 +34,15 @@ public class ZaposlenMapper {
         dto.setDatumzaposljavanja(entity.getDatumzaposljavanja());
         dto.setStatus(entity.getStatus());
         if (entity.getZanimanjeId() != null) {
-            entity.getZanimanjeId().setZaposlenCollection(null);
+            if (entity.getZanimanjeId().getZaposlenCollection() != null && !entity.getZanimanjeId().getZaposlenCollection().isEmpty()) {
+                HashSet<Zaposlen> zaposleni = new HashSet<>();
+                entity.getZanimanjeId().getZaposlenCollection().forEach((zaposlen) -> {
+                    zaposleni.add(new Zaposlen(zaposlen.getZaposlenId()));
+                });
+                entity.getZanimanjeId().setZaposlenCollection(zaposleni);
+            } else {
+                entity.getZanimanjeId().setZaposlenCollection(null);
+            }
         }
         dto.setZanimanje(ZanimanjeMapper.toDto(entity.getZanimanjeId()));
         if (entity.getVoziloCollection() != null && !entity.getVoziloCollection().isEmpty()) {
@@ -41,6 +54,16 @@ public class ZaposlenMapper {
         }
         if (entity.getVoznjaCollection() != null && !entity.getVoznjaCollection().isEmpty()) {
             dto.setVoznjaCollection(entity.getVoznjaCollection().stream().map((voznjaEntity) -> {
+                if (voznjaEntity.getZaposlenId() != null) {
+                    voznjaEntity.setZaposlenId(new Zaposlen(voznjaEntity.getZaposlenId().getZaposlenId()));
+                } else {
+                    voznjaEntity.setZaposlenId(null);
+                }
+                if (voznjaEntity.getVoziloId() != null) {
+                    voznjaEntity.setVoziloId(new Vozilo(voznjaEntity.getVoziloId().getVoziloId()));
+                } else {
+                    voznjaEntity.setVoziloId(null);
+                }
                 return VoznjaMapper.toDto(voznjaEntity);
             }).collect(Collectors.toSet()));
         } else {
@@ -62,8 +85,20 @@ public class ZaposlenMapper {
         }
         dto.setZaposlenId(Short.parseShort("" + entity.getZaposlenId()));
         if (entity.getKorisnickinalogId() != null) {
-            entity.getKorisnickinalogId().setZaposlenCollection(null);
-            entity.getKorisnickinalogId().setZaposlenId(null);
+            if (entity.getKorisnickinalogId().getZaposlenCollection() != null && !entity.getKorisnickinalogId().getZaposlenCollection().isEmpty()) {
+                HashSet<Zaposlen> zaposleni = new HashSet<>();
+                entity.getKorisnickinalogId().getZaposlenCollection().forEach((zaposlen) -> {
+                    zaposleni.add(new Zaposlen(zaposlen.getZaposlenId()));
+                });
+                entity.getKorisnickinalogId().setZaposlenCollection(zaposleni);
+            } else {
+                entity.getKorisnickinalogId().setZaposlenCollection(null);
+            }
+            if (entity.getKorisnickinalogId().getZaposlenId() != null) {
+                entity.getKorisnickinalogId().setZaposlenId(new Zaposlen(entity.getKorisnickinalogId().getZaposlenId().getZaposlenId()));
+            } else {
+                entity.getKorisnickinalogId().setZaposlenId(null);
+            }
         }
         dto.setKorisnickinalog(KorisnickiNalogMapper.toDto(entity.getKorisnickinalogId()));
 
@@ -83,7 +118,15 @@ public class ZaposlenMapper {
         entity.setDatumzaposljavanja(dto.getDatumzaposljavanja());
         entity.setStatus(dto.getStatus());
         if (dto.getZanimanje() != null) {
-            dto.getZanimanje().setZaposlenCollection(null);
+            if (dto.getZanimanje().getZaposlenCollection() != null && !dto.getZanimanje().getZaposlenCollection().isEmpty()) {
+                HashSet<ZaposlenDto> zaposleni = new HashSet<>();
+                dto.getZanimanje().getZaposlenCollection().forEach((zaposlen) -> {
+                    zaposleni.add(new ZaposlenDto(zaposlen.getZaposlenId()));
+                });
+                dto.getZanimanje().setZaposlenCollection(zaposleni);
+            } else {
+                dto.getZanimanje().setZaposlenCollection(null);
+            }
         }
         entity.setZanimanjeId(ZanimanjeMapper.toEntity(dto.getZanimanje()));
         if (dto.getVoziloCollection() != null && !dto.getVoziloCollection().isEmpty()) {
@@ -95,6 +138,16 @@ public class ZaposlenMapper {
         }
         if (dto.getVoznjaCollection() != null && !dto.getVoznjaCollection().isEmpty()) {
             entity.setVoznjaCollection(dto.getVoznjaCollection().stream().map((voznjaDto) -> {
+                if (voznjaDto.getZaposlen() != null) {
+                    voznjaDto.setZaposlen(new ZaposlenDto(voznjaDto.getZaposlen().getZaposlenId()));
+                } else {
+                    voznjaDto.setZaposlen(null);
+                }
+                if (voznjaDto.getVozilo() != null) {
+                    voznjaDto.setVozilo(new VoziloDto(voznjaDto.getVozilo().getVoziloId()));
+                } else {
+                    voznjaDto.setVozilo(null);
+                }
                 return VoznjaMapper.toEntity(voznjaDto);
             }).collect(Collectors.toSet()));
         } else {
@@ -116,8 +169,20 @@ public class ZaposlenMapper {
         }
         entity.setZaposlenId((int) dto.getZaposlenId());
         if (dto.getKorisnickinalog() != null) {
-            dto.getKorisnickinalog().setZaposlen(null);
-            dto.getKorisnickinalog().setZaposlenCollection(null);
+            if (dto.getKorisnickinalog().getZaposlenCollection() != null && !dto.getKorisnickinalog().getZaposlenCollection().isEmpty()) {
+                HashSet<ZaposlenDto> zaposleni = new HashSet<>();
+                dto.getKorisnickinalog().getZaposlenCollection().forEach((zaposlenDto) -> {
+                    zaposleni.add(new ZaposlenDto(zaposlenDto.getZaposlenId()));
+                });
+                dto.getKorisnickinalog().setZaposlenCollection(zaposleni);
+            } else {
+                dto.getKorisnickinalog().setZaposlenCollection(null);
+            }
+            if (dto.getKorisnickinalog().getZaposlen() != null) {
+                dto.getKorisnickinalog().setZaposlen(new ZaposlenDto(dto.getKorisnickinalog().getZaposlen().getZaposlenId()));
+            } else {
+                dto.getKorisnickinalog().setZaposlen(null);
+            }
         }
         entity.setKorisnickinalogId(KorisnickiNalogMapper.toEntity(dto.getKorisnickinalog()));
 

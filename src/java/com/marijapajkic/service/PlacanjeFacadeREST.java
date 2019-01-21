@@ -42,6 +42,8 @@ public class PlacanjeFacadeREST extends AbstractFacade<Placanje> {
     @POST
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public void create(PlacanjeDto dto) {
+        int count = super.count() + 1;
+        dto.setPlacanjeId(Short.parseShort("" + count));
         super.create(PlacanjeMapper.toEntity(dto));
     }
 
@@ -52,8 +54,8 @@ public class PlacanjeFacadeREST extends AbstractFacade<Placanje> {
         super.edit(PlacanjeMapper.toEntity(dto));
     }
 
-    @DELETE
-    @Path("{id}")
+    @POST
+    @Path("delete/{id}")
     public void remove(@PathParam("id") Integer id) {
         super.remove(super.find(id));
     }

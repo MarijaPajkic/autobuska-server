@@ -1,6 +1,7 @@
 package com.marijapajkic.dto;
 
 import java.io.Serializable;
+import java.util.Objects;
 import java.util.Set;
 
 public class KartaDto implements Serializable {
@@ -9,7 +10,7 @@ public class KartaDto implements Serializable {
     private String prevoznik;
     private String relacija;
     private java.util.Date datumpolaska;
-    private java.util.Date vremepolaska;
+    private String vremepolaska;
     private short brojsedista;
     private short peron;
     private long cena;
@@ -23,7 +24,11 @@ public class KartaDto implements Serializable {
     public KartaDto() {
     }
 
-    public KartaDto(short kartaId, String prevoznik, String relacija, java.util.Date datumpolaska, java.util.Date vremepolaska, short brojsedista, short peron, long cena, String popust, long stanicnausluga, Set<PlacanjeDto> placanjeCollection, Set<RezervacijaDto> rezervacijaCollection, PlacanjeDto placanjeId, VoznjaDto voznjaId) {
+    public KartaDto(short kartaId) {
+        this.kartaId = kartaId;
+    }
+
+    public KartaDto(short kartaId, String prevoznik, String relacija, java.util.Date datumpolaska, String vremepolaska, short brojsedista, short peron, long cena, String popust, long stanicnausluga, Set<PlacanjeDto> placanjeCollection, Set<RezervacijaDto> rezervacijaCollection, PlacanjeDto placanjeId, VoznjaDto voznjaId) {
         this.kartaId = kartaId;
         this.prevoznik = prevoznik;
         this.relacija = relacija;
@@ -73,11 +78,11 @@ public class KartaDto implements Serializable {
         this.datumpolaska = datumpolaska;
     }
 
-    public java.util.Date getVremepolaska() {
+    public String getVremepolaska() {
         return vremepolaska;
     }
 
-    public void setVremepolaska(java.util.Date vremepolaska) {
+    public void setVremepolaska(String vremepolaska) {
         this.vremepolaska = vremepolaska;
     }
 
@@ -152,4 +157,6 @@ public class KartaDto implements Serializable {
     public void setVoznja(VoznjaDto voznja) {
         this.voznja = voznja;
     }
+    
+    
 }

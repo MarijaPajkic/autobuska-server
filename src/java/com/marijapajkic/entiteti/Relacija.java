@@ -34,7 +34,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Relacija.findAll", query = "SELECT r FROM Relacija r")
     , @NamedQuery(name = "Relacija.findByRelacijaId", query = "SELECT r FROM Relacija r WHERE r.relacijaId = :relacijaId")
-    , @NamedQuery(name = "Relacija.findByVemepolaska", query = "SELECT r FROM Relacija r WHERE r.vemepolaska = :vemepolaska")
+    , @NamedQuery(name = "Relacija.findByVemepolaska", query = "SELECT r FROM Relacija r WHERE r.vremepolaska = :vremepolaska")
     , @NamedQuery(name = "Relacija.findByVremedolaska", query = "SELECT r FROM Relacija r WHERE r.vremedolaska = :vremedolaska")})
 public class Relacija implements Serializable {
 
@@ -45,11 +45,9 @@ public class Relacija implements Serializable {
     @Column(name = "RELACIJA_ID")
     private Integer relacijaId;
     @Column(name = "VEMEPOLASKA")
-    @Temporal(TemporalType.TIME)
-    private Date vemepolaska;
+    private String vremepolaska;
     @Column(name = "VREMEDOLASKA")
-    @Temporal(TemporalType.TIME)
-    private Date vremedolaska;
+    private String vremedolaska;
     @JoinColumn(name = "KRAJNJESTAJALISTE_ID", referencedColumnName = "STAJALISTE_ID")
     @ManyToOne
     private Stajaliste krajnjestajalisteId;
@@ -79,19 +77,19 @@ public class Relacija implements Serializable {
         this.relacijaId = relacijaId;
     }
 
-    public Date getVemepolaska() {
-        return vemepolaska;
+    public String getVremepolaska() {
+        return vremepolaska;
     }
 
-    public void setVemepolaska(Date vemepolaska) {
-        this.vemepolaska = vemepolaska;
+    public void setVremepolaska(String vremepolaska) {
+        this.vremepolaska = vremepolaska;
     }
 
-    public Date getVremedolaska() {
+    public String getVremedolaska() {
         return vremedolaska;
     }
 
-    public void setVremedolaska(Date vremedolaska) {
+    public void setVremedolaska(String vremedolaska) {
         this.vremedolaska = vremedolaska;
     }
 

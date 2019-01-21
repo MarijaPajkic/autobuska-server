@@ -23,6 +23,10 @@ public class ZaposlenDto implements Serializable {
     public ZaposlenDto() {
     }
 
+    public ZaposlenDto(short zaposlenId) {
+        this.zaposlenId = zaposlenId;
+    }
+    
     public ZaposlenDto(short zaposlenId, String ime, String prezime, String jmbg, String adresaprebivalista, String kontakttelefon, java.util.Date datumzaposljavanja, java.lang.Boolean status, Set<KorisnickiNalogDto> korisnickiNalogCollection, KorisnickiNalogDto korisnickinalogId, ZanimanjeDto zanimanjeId, Set<VoznjaDto> voznjaCollection, Set<DnevnaSmenaDto> dnevnaSmenaCollection, Set<VoziloDto> voziloCollection) {
         this.zaposlenId = zaposlenId;
         this.ime = ime;

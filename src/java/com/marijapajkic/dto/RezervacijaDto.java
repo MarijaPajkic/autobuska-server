@@ -1,20 +1,25 @@
 package com.marijapajkic.dto;
 
 import java.io.Serializable;
+import java.util.Objects;
 import java.util.Set;
 
 public class RezervacijaDto implements Serializable {
 
     private short rezervacijaId;
     private java.util.Date datumrezervacije;
-    private java.util.Date vremerezervacije;
+    private String vremerezervacije;
     private String tiprezervisanja;
     private KartaDto karta;
 
     public RezervacijaDto() {
     }
 
-    public RezervacijaDto(short rezervacijaId, java.util.Date datumrezervacije, java.util.Date vremerezervacije, String tiprezervisanja, KartaDto kartaId) {
+    public RezervacijaDto(short rezervacijaId) {
+        this.rezervacijaId = rezervacijaId;
+    }
+
+    public RezervacijaDto(short rezervacijaId, java.util.Date datumrezervacije, String vremerezervacije, String tiprezervisanja, KartaDto kartaId) {
         this.rezervacijaId = rezervacijaId;
         this.datumrezervacije = datumrezervacije;
         this.vremerezervacije = vremerezervacije;
@@ -39,11 +44,11 @@ public class RezervacijaDto implements Serializable {
         this.datumrezervacije = datumrezervacije;
     }
 
-    public java.util.Date getVremerezervacije() {
+    public String getVremerezervacije() {
         return vremerezervacije;
     }
 
-    public void setVremerezervacije(java.util.Date vremerezervacije) {
+    public void setVremerezervacije(String vremerezervacije) {
         this.vremerezervacije = vremerezervacije;
     }
 
@@ -61,5 +66,6 @@ public class RezervacijaDto implements Serializable {
 
     public void setKarta(KartaDto karta) {
         this.karta = karta;
-    }
+    }    
+    
 }

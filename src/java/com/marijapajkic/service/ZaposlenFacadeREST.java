@@ -41,15 +41,9 @@ public class ZaposlenFacadeREST extends AbstractFacade<Zaposlen> {
     @POST
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public void create(ZaposlenDto dto) {
-        for(int i = 0; i < 20; i++) {
-            System.out.println("");
-        }
-        System.out.println(dto.toString());
-        for(int i = 0; i < 20; i++) {
-            System.out.println("");
-        }
-        Zaposlen entity = ZaposlenMapper.toEntity(dto);
-        super.create(entity);
+        int count = super.count() + 1;
+        dto.setZaposlenId(Short.parseShort("" + count));
+        super.create(ZaposlenMapper.toEntity(dto));
     }
 
     @POST
@@ -59,8 +53,8 @@ public class ZaposlenFacadeREST extends AbstractFacade<Zaposlen> {
         super.edit(ZaposlenMapper.toEntity(dto));
     }
 
-    @DELETE
-    @Path("{id}")
+    @POST
+    @Path("delete/{id}")
     public void remove(@PathParam("id") Integer id) {
         super.remove(super.find(id));
     }

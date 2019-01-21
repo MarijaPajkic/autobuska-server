@@ -42,6 +42,9 @@ public class MedjuStajalisteFacadeREST extends AbstractFacade<MedjuStajaliste> {
     @POST
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public void create(MedjuStajalisteDto dto) {
+        int count = super.count() + 1;
+        dto.setMedjustajalisteId(Short.parseShort("" + count));
+        System.out.println("Krairam medjustajaliste sa ID-jem #" + dto.getMedjustajalisteId());
         super.create(MedjuStajalisteMapper.toEntity(dto));
     }
 
@@ -52,8 +55,8 @@ public class MedjuStajalisteFacadeREST extends AbstractFacade<MedjuStajaliste> {
         super.edit(MedjuStajalisteMapper.toEntity(dto));
     }
 
-    @DELETE
-    @Path("{id}")
+    @POST
+    @Path("delete/{id}")
     public void remove(@PathParam("id") Integer id) {
         super.remove(super.find(id));
     }
@@ -93,5 +96,5 @@ public class MedjuStajalisteFacadeREST extends AbstractFacade<MedjuStajaliste> {
     protected EntityManager getEntityManager() {
         return em;
     }
-    
+
 }

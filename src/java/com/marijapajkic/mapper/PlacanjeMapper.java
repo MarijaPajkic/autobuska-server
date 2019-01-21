@@ -26,8 +26,21 @@ public class PlacanjeMapper {
         dto.setDatumplacanja(entity.getDatumplacanja());
         dto.setVremeplacanja(entity.getVremeplacanja());
         if (entity.getKartaId() != null) {
-            entity.getKartaId().setPlacanjeCollection(null);
-            entity.getKartaId().setPlacanjeId(null);
+            if (entity.getKartaId().getPlacanjeCollection() != null && !entity.getKartaId().getPlacanjeCollection().isEmpty()) {
+                HashSet<Placanje> placanja = new HashSet<>();
+                entity.getKartaId().getPlacanjeCollection().forEach((placanje) -> {
+                    placanja.add(new Placanje(placanje.getPlacanjeId()));
+                });
+                entity.getKartaId().setPlacanjeCollection(placanja);
+            } else {
+                entity.getKartaId().setPlacanjeCollection(null);
+            }
+
+            if (entity.getKartaId().getPlacanjeId() != null) {
+                entity.getKartaId().setPlacanjeId(new Placanje(entity.getKartaId().getPlacanjeId().getPlacanjeId()));
+            } else {
+                entity.getKartaId().setPlacanjeId(null);
+            }
         }
         dto.setKarta(KartaMapper.toDto(entity.getKartaId()));
         if (entity.getKartaCollection() != null && !entity.getKartaCollection().isEmpty()) {
@@ -51,8 +64,20 @@ public class PlacanjeMapper {
         entity.setDatumplacanja(dto.getDatumplacanja());
         entity.setVremeplacanja(dto.getVremeplacanja());
         if (dto.getKarta() != null) {
-            dto.getKarta().setPlacanje(null);
-            dto.getKarta().setPlacanjeCollection(null);
+            if (dto.getKarta().getPlacanjeCollection() != null && !dto.getKarta().getPlacanjeCollection().isEmpty()) {
+                HashSet<PlacanjeDto> placanja = new HashSet<>();
+                dto.getKarta().getPlacanjeCollection().forEach((placanjeDto) -> {
+                    placanja.add(new PlacanjeDto(placanjeDto.getPlacanjeId()));
+                });
+                dto.getKarta().setPlacanjeCollection(placanja);
+            } else {
+                dto.getKarta().setPlacanjeCollection(null);
+            }
+            if (dto.getKarta().getPlacanje() != null) {
+                dto.getKarta().setPlacanje(new PlacanjeDto(dto.getKarta().getPlacanje().getPlacanjeId()));
+            } else {
+                dto.getKarta().setPlacanje(null);
+            }
         }
         entity.setKartaId(KartaMapper.toEntity(dto.getKarta()));
         if (dto.getKartaCollection() != null && !dto.getKartaCollection().isEmpty()) {

@@ -16,6 +16,10 @@ public class VoznjaDto implements Serializable {
     public VoznjaDto() {
     }
 
+    public VoznjaDto(String voznjaId) {
+        this.voznjaId = voznjaId;
+    }
+
     public VoznjaDto(String voznjaId, short brojkola, java.util.Date datumvoznje, VoziloDto voziloId, RelacijaDto relacijaId, ZaposlenDto zaposlenId, Set<KartaDto> kartaCollection) {
         this.voznjaId = voznjaId;
         this.brojkola = brojkola;

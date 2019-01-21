@@ -14,6 +14,10 @@ public class SmenaDto implements Serializable {
     public SmenaDto() {
     }
 
+    public SmenaDto(short smenaId) {
+        this.smenaId = smenaId;
+    }
+
     public SmenaDto(short smenaId, String nazivsmene, String pocetaksmene, String krajsmene, Set<DnevnaSmenaDto> dnevnaSmenaCollection) {
         this.smenaId = smenaId;
         this.nazivsmene = nazivsmene;

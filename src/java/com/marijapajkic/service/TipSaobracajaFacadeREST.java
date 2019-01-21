@@ -41,6 +41,8 @@ public class TipSaobracajaFacadeREST extends AbstractFacade<TipSaobracaja> {
     @POST
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public void create(TipSaobracajaDto dto) {
+        int count = super.count() + 1;
+        dto.setTipsaobracajaId(Short.parseShort("" + count));
         super.create(TipSaobracajaMapper.toEntity(dto));
     }
 
@@ -51,8 +53,8 @@ public class TipSaobracajaFacadeREST extends AbstractFacade<TipSaobracaja> {
         super.edit(TipSaobracajaMapper.toEntity(dto));
     }
 
-    @DELETE
-    @Path("{id}")
+    @POST
+    @Path("delete/{id}")
     public void remove(@PathParam("id") Integer id) {
         super.remove(super.find(id));
     }

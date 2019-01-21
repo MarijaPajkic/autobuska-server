@@ -41,6 +41,8 @@ public class DnevnaSmenaFacadeREST extends AbstractFacade<DnevnaSmena> {
     @POST
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public void create(DnevnaSmenaDto dto) {
+        int count = super.count() + 1;
+        dto.setDnevnasmenaId(Short.parseShort("" + count));
         super.create(DnevnaSmenaMapper.toEntity(dto));
     }
 
@@ -51,8 +53,8 @@ public class DnevnaSmenaFacadeREST extends AbstractFacade<DnevnaSmena> {
         super.edit(DnevnaSmenaMapper.toEntity(dto));
     }
 
-    @DELETE
-    @Path("{id}")
+    @POST
+    @Path("delete/{id}")
     public void remove(@PathParam("id") Integer id) {
         super.remove(super.find(id));
     }

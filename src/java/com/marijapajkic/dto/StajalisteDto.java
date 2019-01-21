@@ -14,6 +14,10 @@ public class StajalisteDto implements Serializable {
     public StajalisteDto() {
     }
 
+    public StajalisteDto(short stajalisteId) {
+        this.stajalisteId = stajalisteId;
+    }
+
     public StajalisteDto(short stajalisteId, String nazivstajalista, Set<RelacijaDto> relacijaCollection, Set<RelacijaDto> relacijaCollection1, Set<MedjuStajalisteDto> medjuStajalisteCollection) {
         this.stajalisteId = stajalisteId;
         this.nazivstajalista = nazivstajalista;

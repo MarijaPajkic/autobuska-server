@@ -6,8 +6,8 @@ import java.util.Set;
 public class RelacijaDto implements Serializable {
 
     private short relacijaId;
-    private java.util.Date vemepolaska;
-    private java.util.Date vremedolaska;
+    private String vremepolaska;
+    private String vremedolaska;
     private StajalisteDto krajnjestajaliste;
     private StajalisteDto polaznostajaliste;
     private TipSaobracajaDto tipsaobracaja;
@@ -17,9 +17,13 @@ public class RelacijaDto implements Serializable {
     public RelacijaDto() {
     }
 
-    public RelacijaDto(short relacijaId, java.util.Date vemepolaska, java.util.Date vremedolaska, StajalisteDto krajnjestajalisteId, StajalisteDto polaznostajalisteId, TipSaobracajaDto tipsaobracajaId, Set<VoznjaDto> voznjaCollection, Set<MedjuStajalisteDto> medjuStajalisteCollection) {
+    public RelacijaDto(short relacijaId) {
         this.relacijaId = relacijaId;
-        this.vemepolaska = vemepolaska;
+    }
+
+    public RelacijaDto(short relacijaId, String vemepolaska, String vremedolaska, StajalisteDto krajnjestajalisteId, StajalisteDto polaznostajalisteId, TipSaobracajaDto tipsaobracajaId, Set<VoznjaDto> voznjaCollection, Set<MedjuStajalisteDto> medjuStajalisteCollection) {
+        this.relacijaId = relacijaId;
+        this.vremepolaska = vemepolaska;
         this.vremedolaska = vremedolaska;
         this.krajnjestajaliste = krajnjestajalisteId;
         this.polaznostajaliste = polaznostajalisteId;
@@ -37,19 +41,19 @@ public class RelacijaDto implements Serializable {
         this.relacijaId = relacijaId;
     }
 
-    public java.util.Date getVemepolaska() {
-        return vemepolaska;
+    public String getVremepolaska() {
+        return vremepolaska;
     }
 
-    public void setVemepolaska(java.util.Date vemepolaska) {
-        this.vemepolaska = vemepolaska;
+    public void setVremepolaska(String vremepolaska) {
+        this.vremepolaska = vremepolaska;
     }
 
-    public java.util.Date getVremedolaska() {
+    public String getVremedolaska() {
         return vremedolaska;
     }
 
-    public void setVremedolaska(java.util.Date vremedolaska) {
+    public void setVremedolaska(String vremedolaska) {
         this.vremedolaska = vremedolaska;
     }
 

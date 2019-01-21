@@ -23,7 +23,9 @@ public class VoziloMapper {
         VoziloDto dto = new VoziloDto();
         dto.setVoziloId(Short.parseShort("" + entity.getVoziloId()));
         dto.setRegistracija(entity.getRegistracija());
-        dto.setBrojsedista(Short.parseShort("" + entity.getBrojsedista()));
+        if (entity.getBrojsedista() != null) {
+            dto.setBrojsedista(Short.parseShort("" + entity.getBrojsedista()));
+        }
         if (entity.getVoznjaCollection() != null && !entity.getVoznjaCollection().isEmpty()) {
             dto.setVoznjaCollection(entity.getVoznjaCollection().stream().map((voznjaEntity) -> {
                 return VoznjaMapper.toDto(voznjaEntity);
@@ -32,7 +34,24 @@ public class VoziloMapper {
             dto.setVoznjaCollection(new HashSet<>());
         }
         if (entity.getZaposlenId() != null) {
-            entity.getZaposlenId().setVoziloCollection(null);
+            if (entity.getZaposlenId().getVoziloCollection() != null && !entity.getZaposlenId().getVoziloCollection().isEmpty()) {
+                HashSet<Vozilo> vozila = new HashSet<>();
+                entity.getZaposlenId().getVoziloCollection().forEach((vozilo) -> {
+                    vozila.add(new Vozilo(vozilo.getVoziloId()));
+                });
+                entity.getZaposlenId().setVoziloCollection(vozila);
+            } else {
+                entity.getZaposlenId().setVoziloCollection(null);
+            }
+            if (entity.getZaposlenId().getVoziloCollection() != null && !entity.getZaposlenId().getVoziloCollection().isEmpty()) {
+                HashSet<Vozilo> vozila = new HashSet<>();
+                entity.getZaposlenId().getVoziloCollection().forEach((vozilo) -> {
+                    vozila.add(new Vozilo(vozilo.getVoziloId()));
+                });
+                entity.getZaposlenId().setVoziloCollection(vozila);
+            } else {
+                entity.getZaposlenId().setVoziloCollection(null);
+            }
         }
         dto.setZaposlen(ZaposlenMapper.toDto(entity.getZaposlenId()));
 
@@ -55,7 +74,24 @@ public class VoziloMapper {
             entity.setVoznjaCollection(new HashSet<>());
         }
         if (dto.getZaposlen() != null) {
-            dto.getZaposlen().setVoziloCollection(null);
+            if (dto.getZaposlen().getVoziloCollection() != null && !dto.getZaposlen().getVoziloCollection().isEmpty()) {
+                HashSet<VoziloDto> vozila = new HashSet<>();
+                dto.getZaposlen().getVoziloCollection().forEach((voziloDto) -> {
+                    vozila.add(new VoziloDto(voziloDto.getVoziloId()));
+                });
+                dto.getZaposlen().setVoziloCollection(vozila);
+            } else {
+                dto.getZaposlen().setVoziloCollection(null);
+            }
+            if (dto.getZaposlen().getVoziloCollection() != null && !dto.getZaposlen().getVoziloCollection().isEmpty()) {
+                HashSet<VoziloDto> vozila = new HashSet<>();
+                dto.getZaposlen().getVoziloCollection().forEach((voziloDto) -> {
+                    vozila.add(new VoziloDto(voziloDto.getVoziloId()));
+                });
+                dto.getZaposlen().setVoziloCollection(vozila);
+            } else {
+                dto.getZaposlen().setVoziloCollection(null);
+            }
         }
         entity.setZaposlenId(ZaposlenMapper.toEntity(dto.getZaposlen()));
 

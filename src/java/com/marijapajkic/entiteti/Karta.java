@@ -62,8 +62,7 @@ public class Karta implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date datumpolaska;
     @Column(name = "VREMEPOLASKA")
-    @Temporal(TemporalType.TIME)
-    private Date vremepolaska;
+    private String vremepolaska;
     @Column(name = "BROJSEDISTA")
     private Integer brojsedista;
     @Column(name = "PERON")
@@ -125,11 +124,11 @@ public class Karta implements Serializable {
         this.datumpolaska = datumpolaska;
     }
 
-    public Date getVremepolaska() {
+    public String getVremepolaska() {
         return vremepolaska;
     }
 
-    public void setVremepolaska(Date vremepolaska) {
+    public void setVremepolaska(String vremepolaska) {
         this.vremepolaska = vremepolaska;
     }
 

@@ -45,6 +45,8 @@ public class KorisnickiNalogFacadeREST extends AbstractFacade<KorisnickiNalog> {
     @POST
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public void create(KorisnickiNalogDto dto) {
+        int count = super.count() + 1;
+        dto.setKorisnickinalogId(Short.parseShort("" + count));
         super.create(KorisnickiNalogMapper.toEntity(dto));
     }
 
@@ -55,8 +57,8 @@ public class KorisnickiNalogFacadeREST extends AbstractFacade<KorisnickiNalog> {
         super.edit(KorisnickiNalogMapper.toEntity(dto));
     }
 
-    @DELETE
-    @Path("{id}")
+    @POST
+    @Path("delete/{id}")
     public void remove(@PathParam("id") Integer id) {
         super.remove(super.find(id));
     }

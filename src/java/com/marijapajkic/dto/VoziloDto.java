@@ -14,6 +14,10 @@ public class VoziloDto implements Serializable {
     public VoziloDto() {
     }
 
+    public VoziloDto(short voziloId) {
+        this.voziloId = voziloId;
+    }
+
     public VoziloDto(short voziloId, String registracija, short brojsedista, Set<VoznjaDto> voznjaCollection, ZaposlenDto zaposlenId) {
         this.voziloId = voziloId;
         this.registracija = registracija;

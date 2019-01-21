@@ -41,6 +41,8 @@ public class StajalisteFacadeREST extends AbstractFacade<Stajaliste> {
     @POST
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public void create(StajalisteDto dto) {
+        int count = super.count() + 1;
+        dto.setStajalisteId(Short.parseShort("" + count));
         super.create(StajalisteMapper.toEntity(dto));
     }
 
@@ -51,8 +53,8 @@ public class StajalisteFacadeREST extends AbstractFacade<Stajaliste> {
         super.edit(StajalisteMapper.toEntity(dto));
     }
 
-    @DELETE
-    @Path("{id}")
+    @POST
+    @Path("delete/{id}")
     public void remove(@PathParam("id") Integer id) {
         super.remove(super.find(id));
     }

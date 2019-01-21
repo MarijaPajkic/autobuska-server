@@ -7,6 +7,7 @@ package com.marijapajkic.mapper;
 
 import com.marijapajkic.dto.DnevnaSmenaDto;
 import com.marijapajkic.entiteti.DnevnaSmena;
+import java.util.HashSet;
 
 /**
  *
@@ -22,11 +23,27 @@ public class DnevnaSmenaMapper {
         dto.setDatumdnevnesmene(entity.getDatumdnevnesmene());
         dto.setDnevnasmenaId(Short.parseShort("" + entity.getDnevnasmenaId()));
         if (entity.getSmenaId() != null) {
-            entity.getSmenaId().setDnevnaSmenaCollection(null);
+            if (entity.getSmenaId().getDnevnaSmenaCollection() != null && !entity.getSmenaId().getDnevnaSmenaCollection().isEmpty()) {
+                HashSet<DnevnaSmena> dnevneSmene = new HashSet<>();
+                entity.getSmenaId().getDnevnaSmenaCollection().forEach((dnevnaSmena) -> {
+                    dnevneSmene.add(new DnevnaSmena(dnevnaSmena.getDnevnasmenaId()));
+                });
+                entity.getSmenaId().setDnevnaSmenaCollection(dnevneSmene);
+            } else {
+                entity.getSmenaId().setDnevnaSmenaCollection(null);
+            }
         }
         dto.setSmena(SmenaMapper.toDto(entity.getSmenaId()));
         if (entity.getZaposlenId() != null) {
-            entity.getZaposlenId().setDnevnaSmenaCollection(null);
+            if (entity.getZaposlenId().getDnevnaSmenaCollection() != null && !entity.getZaposlenId().getDnevnaSmenaCollection().isEmpty()) {
+                HashSet<DnevnaSmena> dnevneSmene = new HashSet<>();
+                entity.getZaposlenId().getDnevnaSmenaCollection().forEach((dnevnaSmena) -> {
+                    dnevneSmene.add(new DnevnaSmena(dnevnaSmena.getDnevnasmenaId()));
+                });
+                entity.getZaposlenId().setDnevnaSmenaCollection(dnevneSmene);
+            } else {
+                entity.getZaposlenId().setDnevnaSmenaCollection(null);
+            }
         }
         dto.setZaposlen(ZaposlenMapper.toDto(entity.getZaposlenId()));
 
@@ -41,11 +58,27 @@ public class DnevnaSmenaMapper {
         entity.setDatumdnevnesmene(dto.getDatumdnevnesmene());
         entity.setDnevnasmenaId((int) dto.getDnevnasmenaId());
         if (dto.getSmena() != null) {
-            dto.getSmena().setDnevnaSmenaCollection(null);
+            if (dto.getSmena().getDnevnaSmenaCollection() != null && !dto.getSmena().getDnevnaSmenaCollection().isEmpty()) {
+                HashSet<DnevnaSmenaDto> dnevneSmene = new HashSet<>();
+                dto.getSmena().getDnevnaSmenaCollection().forEach((dnevnaSmenaDto) -> {
+                    dnevneSmene.add(new DnevnaSmenaDto(dnevnaSmenaDto.getDnevnasmenaId()));
+                });
+                dto.getSmena().setDnevnaSmenaCollection(dnevneSmene);
+            } else {
+                dto.getSmena().setDnevnaSmenaCollection(null);
+            }
         }
         entity.setSmenaId(SmenaMapper.toEntity(dto.getSmena()));
         if (dto.getZaposlen() != null) {
-            dto.getZaposlen().setDnevnaSmenaCollection(null);
+            if (dto.getZaposlen().getDnevnaSmenaCollection() != null && !dto.getZaposlen().getDnevnaSmenaCollection().isEmpty()) {
+                HashSet<DnevnaSmenaDto> dnevneSmene = new HashSet<>();
+                dto.getZaposlen().getDnevnaSmenaCollection().forEach((dnevnaSmenaDto) -> {
+                    dnevneSmene.add(new DnevnaSmenaDto(dnevnaSmenaDto.getDnevnasmenaId()));
+                });
+                dto.getZaposlen().setDnevnaSmenaCollection(dnevneSmene);
+            } else {
+                dto.getZaposlen().setDnevnaSmenaCollection(null);
+            }
         }
         entity.setZaposlenId(ZaposlenMapper.toEntity(dto.getZaposlen()));
 

@@ -8,14 +8,18 @@ public class PlacanjeDto implements Serializable {
     private short placanjeId;
     private String tipplacanja;
     private java.util.Date datumplacanja;
-    private java.util.Date vremeplacanja;
+    private String vremeplacanja;
     private KartaDto karta;
     private Set<KartaDto> kartaCollection;
 
     public PlacanjeDto() {
     }
 
-    public PlacanjeDto(short placanjeId, String tipplacanja, java.util.Date datumplacanja, java.util.Date vremeplacanja, KartaDto kartaId, Set<KartaDto> kartaCollection) {
+    public PlacanjeDto(short placanjeId) {
+        this.placanjeId = placanjeId;
+    }
+
+    public PlacanjeDto(short placanjeId, String tipplacanja, java.util.Date datumplacanja, String vremeplacanja, KartaDto kartaId, Set<KartaDto> kartaCollection) {
         this.placanjeId = placanjeId;
         this.tipplacanja = tipplacanja;
         this.datumplacanja = datumplacanja;
@@ -49,11 +53,11 @@ public class PlacanjeDto implements Serializable {
         this.datumplacanja = datumplacanja;
     }
 
-    public java.util.Date getVremeplacanja() {
+    public String getVremeplacanja() {
         return vremeplacanja;
     }
 
-    public void setVremeplacanja(java.util.Date vremeplacanja) {
+    public void setVremeplacanja(String vremeplacanja) {
         this.vremeplacanja = vremeplacanja;
     }
 

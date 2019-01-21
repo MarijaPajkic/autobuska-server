@@ -6,6 +6,7 @@
 package com.marijapajkic.entiteti;
 
 import java.io.Serializable;
+import java.sql.Time;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -41,8 +42,7 @@ public class MedjuStajaliste implements Serializable {
     @Column(name = "MEDJUSTAJALISTE_ID")
     private Integer medjustajalisteId;
     @Column(name = "VREMEDOLASKANASTAJALISTE")
-    @Temporal(TemporalType.TIME)
-    private Date vremedolaskanastajaliste;
+    private String vremedolaskanastajaliste;
     @JoinColumn(name = "STAJALISTE_ID", referencedColumnName = "STAJALISTE_ID")
     @ManyToOne
     private Stajaliste stajalisteId;
@@ -65,11 +65,11 @@ public class MedjuStajaliste implements Serializable {
         this.medjustajalisteId = medjustajalisteId;
     }
 
-    public Date getVremedolaskanastajaliste() {
+    public String getVremedolaskanastajaliste() {
         return vremedolaskanastajaliste;
     }
 
-    public void setVremedolaskanastajaliste(Date vremedolaskanastajaliste) {
+    public void setVremedolaskanastajaliste(String vremedolaskanastajaliste) {
         this.vremedolaskanastajaliste = vremedolaskanastajaliste;
     }
 

@@ -41,6 +41,8 @@ public class VoznjaFacadeREST extends AbstractFacade<Voznja> {
     @POST
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public void create(VoznjaDto dto) {
+        int count = super.count() + 1;
+        dto.setVoznjaId("" + count);
         super.create(VoznjaMapper.toEntity(dto));
     }
 
@@ -51,8 +53,8 @@ public class VoznjaFacadeREST extends AbstractFacade<Voznja> {
         super.edit(VoznjaMapper.toEntity(dto));
     }
 
-    @DELETE
-    @Path("{id}")
+    @POST
+    @Path("delete/{id}")
     public void remove(@PathParam("id") String id) {
         super.remove(super.find(id));
     }
@@ -92,5 +94,5 @@ public class VoznjaFacadeREST extends AbstractFacade<Voznja> {
     protected EntityManager getEntityManager() {
         return em;
     }
-    
+
 }

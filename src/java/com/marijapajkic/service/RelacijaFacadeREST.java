@@ -6,6 +6,7 @@
 package com.marijapajkic.service;
 
 import com.marijapajkic.dto.RelacijaDto;
+import com.marijapajkic.dto.RelacijaSaMedjustajalistimaDto;
 import com.marijapajkic.entiteti.Relacija;
 import com.marijapajkic.mapper.RelacijaMapper;
 import java.util.List;
@@ -38,10 +39,24 @@ public class RelacijaFacadeREST extends AbstractFacade<Relacija> {
     public RelacijaFacadeREST() {
         super(Relacija.class);
     }
+    
+//    @POST
+//    @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+//    public void kreirajSaMedjustajalistima(RelacijaSaMedjustajalistimaDto relacijaSaMedjustajalistimaDto) {
+//        int count = super.count() + 1;
+//        relacijaSaMedjustajalistimaDto.getRelacija().setRelacijaId(Short.parseShort("" + count));
+//        super.create(RelacijaMapper.toEntity(relacijaSaMedjustajalistimaDto.getRelacija())); 
+//        
+//        relacijaSaMedjustajalistimaDto.getMedjustajalista().forEach((medjustajalisteDto) -> {
+//            
+//        });
+//    }
 
     @POST
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public void create(RelacijaDto dto) {
+        int count = super.count() + 1;
+        dto.setRelacijaId(Short.parseShort("" + count));
         super.create(RelacijaMapper.toEntity(dto));
     }
 
@@ -52,8 +67,8 @@ public class RelacijaFacadeREST extends AbstractFacade<Relacija> {
         super.edit(RelacijaMapper.toEntity(dto));
     }
 
-    @DELETE
-    @Path("{id}")
+    @POST
+    @Path("delete/{id}")
     public void remove(@PathParam("id") Integer id) {
         super.remove(super.find(id));
     }

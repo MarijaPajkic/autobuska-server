@@ -26,8 +26,20 @@ public class KorisnickiNalogMapper {
         dto.setKorisnickiemail(entity.getKorisnickiemail());
         dto.setKorisnickalozinka(entity.getKorisnickalozinka());
         if (entity.getZaposlenId() != null) {
-            entity.getZaposlenId().setKorisnickiNalogCollection(null);
-            entity.getZaposlenId().setKorisnickinalogId(null);
+            if (entity.getZaposlenId().getKorisnickiNalogCollection() != null && !entity.getZaposlenId().getKorisnickiNalogCollection().isEmpty()) {
+                HashSet<KorisnickiNalog> korisnickiNalozi = new HashSet<>();
+                entity.getZaposlenId().getKorisnickiNalogCollection().forEach((korisnickiNalog) -> {
+                    korisnickiNalozi.add(new KorisnickiNalog(korisnickiNalog.getKorisnickinalogId()));
+                });
+                entity.getZaposlenId().setKorisnickiNalogCollection(korisnickiNalozi);
+            } else {
+                entity.getZaposlenId().setKorisnickiNalogCollection(null);
+            }
+            if (entity.getZaposlenId().getKorisnickinalogId() != null) {
+                entity.getZaposlenId().setKorisnickinalogId(new KorisnickiNalog(entity.getZaposlenId().getKorisnickinalogId().getKorisnickinalogId()));
+            } else {
+                entity.getZaposlenId().setKorisnickinalogId(null);
+            }
         }
         dto.setZaposlen(ZaposlenMapper.toDto(entity.getZaposlenId()));
         if (entity.getZaposlenCollection() != null && !entity.getZaposlenCollection().isEmpty()) {
@@ -51,8 +63,20 @@ public class KorisnickiNalogMapper {
         entity.setKorisnickiemail(dto.getKorisnickiemail());
         entity.setKorisnickalozinka(dto.getKorisnickalozinka());
         if (dto.getZaposlen() != null) {
-            dto.getZaposlen().setKorisnickiNalogCollection(null);
-            dto.getZaposlen().setKorisnickinalog(null);
+            if (dto.getZaposlen().getKorisnickiNalogCollection() != null && !dto.getZaposlen().getKorisnickiNalogCollection().isEmpty()) {
+                HashSet<KorisnickiNalogDto> korisnickiNalozi = new HashSet<>();
+                dto.getZaposlen().getKorisnickiNalogCollection().forEach((korisnickiNalogDto) -> {
+                    korisnickiNalozi.add(new KorisnickiNalogDto(korisnickiNalogDto.getKorisnickinalogId(), korisnickiNalogDto.getKorisnickoime()));
+                });
+                dto.getZaposlen().setKorisnickiNalogCollection(korisnickiNalozi);
+            } else {
+                dto.getZaposlen().setKorisnickiNalogCollection(null);
+            }
+            if (dto.getZaposlen().getKorisnickinalog() != null) {
+                dto.getZaposlen().setKorisnickinalog(new KorisnickiNalogDto(dto.getZaposlen().getKorisnickinalog().getKorisnickinalogId(), dto.getZaposlen().getKorisnickinalog().getKorisnickoime()));
+            } else {
+                dto.getZaposlen().setKorisnickinalog(null);
+            }
         }
         entity.setZaposlenId(ZaposlenMapper.toEntity(dto.getZaposlen()));
         if (dto.getZaposlenCollection() != null && !dto.getZaposlenCollection().isEmpty()) {

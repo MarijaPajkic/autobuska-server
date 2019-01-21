@@ -12,6 +12,10 @@ public class ZanimanjeDto implements Serializable {
     public ZanimanjeDto() {
     }
 
+    public ZanimanjeDto(short zanimanjeId) {
+        this.zanimanjeId = zanimanjeId;
+    }
+    
     public ZanimanjeDto(short zanimanjeId, String nazivzanimanja, Set<ZaposlenDto> zaposlenCollection) {
         this.zanimanjeId = zanimanjeId;
         this.nazivzanimanja = nazivzanimanja;

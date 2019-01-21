@@ -5,8 +5,11 @@
  */
 package com.marijapajkic.service;
 
+import com.marijapajkic.dto.RezervacijaDto;
 import com.marijapajkic.entiteti.Rezervacija;
+import com.marijapajkic.mapper.RezervacijaMapper;
 import java.util.List;
+import java.util.stream.Collectors;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -36,10 +39,12 @@ public class RezervacijaFacadeREST extends AbstractFacade<Rezervacija> {
     }
 
     @POST
-    @Override
+//    @Override
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public void create(Rezervacija entity) {
-        super.create(entity);
+    public void create(RezervacijaDto dto) {
+        int count = super.count() + 1;
+        dto.setRezervacijaId(Short.parseShort("" + count));
+        super.create(RezervacijaMapper.toEntity(dto));
     }
 
     @POST
@@ -49,8 +54,8 @@ public class RezervacijaFacadeREST extends AbstractFacade<Rezervacija> {
         super.edit(entity);
     }
 
-    @DELETE
-    @Path("{id}")
+    @POST
+    @Path("delete/{id}")
     public void remove(@PathParam("id") Integer id) {
         super.remove(super.find(id));
     }
@@ -58,15 +63,17 @@ public class RezervacijaFacadeREST extends AbstractFacade<Rezervacija> {
     @GET
     @Path("{id}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public Rezervacija find(@PathParam("id") Integer id) {
-        return super.find(id);
+    public RezervacijaDto find(@PathParam("id") Integer id) {
+        return RezervacijaMapper.toDto(super.find(id));
     }
 
     @GET
-    @Override
+//    @Override
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public List<Rezervacija> findAll() {
-        return super.findAll();
+    public List<RezervacijaDto> findAllDtos() {
+        return super.findAll().stream().map((rezervacija) -> {
+            return RezervacijaMapper.toDto(rezervacija);
+        }).collect(Collectors.toList());
     }
 
     @GET
@@ -87,5 +94,5 @@ public class RezervacijaFacadeREST extends AbstractFacade<Rezervacija> {
     protected EntityManager getEntityManager() {
         return em;
     }
-    
+
 }

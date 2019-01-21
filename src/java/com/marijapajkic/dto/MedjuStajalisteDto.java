@@ -1,19 +1,24 @@
 package com.marijapajkic.dto;
 
 import java.io.Serializable;
+import java.sql.Time;
 import java.util.Set;
 
 public class MedjuStajalisteDto implements Serializable {
 
     private short medjustajalisteId;
-    private java.util.Date vremedolaskanastajaliste;
+    private String vremedolaskanastajaliste;
     private StajalisteDto stajaliste;
     private RelacijaDto relacija;
 
     public MedjuStajalisteDto() {
     }
 
-    public MedjuStajalisteDto(short medjustajalisteId, java.util.Date vremedolaskanastajaliste, StajalisteDto stajalisteId, RelacijaDto relacijaId) {
+    public MedjuStajalisteDto(short medjustajalisteId) {
+        this.medjustajalisteId = medjustajalisteId;
+    }
+
+    public MedjuStajalisteDto(short medjustajalisteId, String vremedolaskanastajaliste, StajalisteDto stajalisteId, RelacijaDto relacijaId) {
         this.medjustajalisteId = medjustajalisteId;
         this.vremedolaskanastajaliste = vremedolaskanastajaliste;
         this.stajaliste = stajalisteId;
@@ -29,11 +34,11 @@ public class MedjuStajalisteDto implements Serializable {
         this.medjustajalisteId = medjustajalisteId;
     }
 
-    public java.util.Date getVremedolaskanastajaliste() {
+    public String getVremedolaskanastajaliste() {
         return vremedolaskanastajaliste;
     }
 
-    public void setVremedolaskanastajaliste(java.util.Date vremedolaskanastajaliste) {
+    public void setVremedolaskanastajaliste(String vremedolaskanastajaliste) {
         this.vremedolaskanastajaliste = vremedolaskanastajaliste;
     }
 

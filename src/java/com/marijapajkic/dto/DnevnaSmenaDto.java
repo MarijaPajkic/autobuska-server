@@ -13,6 +13,10 @@ public class DnevnaSmenaDto implements Serializable {
     public DnevnaSmenaDto() {
     }
 
+    public DnevnaSmenaDto(short dnevnasmenaId) {
+        this.dnevnasmenaId = dnevnasmenaId;
+    }
+
     public DnevnaSmenaDto(short dnevnasmenaId, java.util.Date datumdnevnesmene, ZaposlenDto zaposlenId, SmenaDto smenaId) {
         this.dnevnasmenaId = dnevnasmenaId;
         this.datumdnevnesmene = datumdnevnesmene;

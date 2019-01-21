@@ -53,8 +53,7 @@ public class Placanje implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date datumplacanja;
     @Column(name = "VREMEPLACANJA")
-    @Temporal(TemporalType.TIME)
-    private Date vremeplacanja;
+    private String vremeplacanja;
     @JoinColumn(name = "KARTA_ID", referencedColumnName = "KARTA_ID")
     @ManyToOne
     private Karta kartaId;
@@ -92,11 +91,11 @@ public class Placanje implements Serializable {
         this.datumplacanja = datumplacanja;
     }
 
-    public Date getVremeplacanja() {
+    public String getVremeplacanja() {
         return vremeplacanja;
     }
 
-    public void setVremeplacanja(Date vremeplacanja) {
+    public void setVremeplacanja(String vremeplacanja) {
         this.vremeplacanja = vremeplacanja;
     }
 

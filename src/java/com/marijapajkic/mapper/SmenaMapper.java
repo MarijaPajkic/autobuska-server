@@ -28,6 +28,7 @@ public class SmenaMapper {
         } else {
             dto.setDnevnaSmenaCollection(new HashSet<>());
         }
+        dto.setPocetaksmene(entity.getPocetaksmene());
         dto.setKrajsmene(entity.getKrajsmene());
         dto.setNazivsmene(entity.getNazivsmene());
         dto.setSmenaId(Short.parseShort("" + entity.getSmenaId()));
@@ -47,6 +48,7 @@ public class SmenaMapper {
         } else {
             entity.setDnevnaSmenaCollection(new HashSet<>());
         }
+        entity.setPocetaksmene(dto.getPocetaksmene());
         entity.setKrajsmene(dto.getKrajsmene());
         entity.setNazivsmene(dto.getNazivsmene());
         entity.setSmenaId((int) dto.getSmenaId());

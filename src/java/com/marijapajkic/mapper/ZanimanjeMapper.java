@@ -25,6 +25,9 @@ public class ZanimanjeMapper {
         dto.setNazivzanimanja(entity.getNazivzanimanja());
         if (entity.getZaposlenCollection() != null && !entity.getZaposlenCollection().isEmpty()) {
             dto.setZaposlenCollection(entity.getZaposlenCollection().stream().map((zaposlenEntity) -> {
+                if (zaposlenEntity.getZanimanjeId() != null) {
+                    zaposlenEntity.setZanimanjeId(new Zanimanje(zaposlenEntity.getZanimanjeId().getZanimanjeId()));
+                }
                 return ZaposlenMapper.toDto(zaposlenEntity);
             }).collect(Collectors.toSet()));
         } else {
@@ -43,6 +46,9 @@ public class ZanimanjeMapper {
         entity.setNazivzanimanja(dto.getNazivzanimanja());
         if (dto.getZaposlenCollection() != null && !dto.getZaposlenCollection().isEmpty()) {
             entity.setZaposlenCollection(dto.getZaposlenCollection().stream().map((zaposlenDto) -> {
+                if (zaposlenDto.getZanimanje() != null) {
+                    zaposlenDto.setZanimanje(new ZanimanjeDto(zaposlenDto.getZanimanje().getZanimanjeId()));
+                }
                 return ZaposlenMapper.toEntity(zaposlenDto);
             }).collect(Collectors.toSet()));
         } else {

@@ -47,8 +47,7 @@ public class Rezervacija implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date datumrezervacije;
     @Column(name = "VREMEREZERVACIJE")
-    @Temporal(TemporalType.TIME)
-    private Date vremerezervacije;
+    private String vremerezervacije;
     @Size(max = 1024)
     @Column(name = "TIPREZERVISANJA")
     private String tiprezervisanja;
@@ -79,11 +78,11 @@ public class Rezervacija implements Serializable {
         this.datumrezervacije = datumrezervacije;
     }
 
-    public Date getVremerezervacije() {
+    public String getVremerezervacije() {
         return vremerezervacije;
     }
 
-    public void setVremerezervacije(Date vremerezervacije) {
+    public void setVremerezervacije(String vremerezervacije) {
         this.vremerezervacije = vremerezervacije;
     }
 

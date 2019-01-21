@@ -12,6 +12,10 @@ public class TipSaobracajaDto implements Serializable {
     public TipSaobracajaDto() {
     }
 
+    public TipSaobracajaDto(short tipsaobracajaId) {
+        this.tipsaobracajaId = tipsaobracajaId;
+    }
+
     public TipSaobracajaDto(short tipsaobracajaId, String tipsaobracajaNaziv, Set<RelacijaDto> relacijaCollection) {
         this.tipsaobracajaId = tipsaobracajaId;
         this.tipsaobracajaNaziv = tipsaobracajaNaziv;

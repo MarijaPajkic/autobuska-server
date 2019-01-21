@@ -42,6 +42,8 @@ public class SmenaFacadeREST extends AbstractFacade<Smena> {
     @POST
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public void create(SmenaDto dto) {
+        int count = super.count() + 1;
+        dto.setSmenaId(Short.parseShort("" + count));
         super.create(SmenaMapper.toEntity(dto));
     }
 
@@ -52,8 +54,8 @@ public class SmenaFacadeREST extends AbstractFacade<Smena> {
         super.edit(SmenaMapper.toEntity(dto));
     }
 
-    @DELETE
-    @Path("{id}")
+    @POST
+    @Path("delete/{id}")
     public void remove(@PathParam("id") Integer id) {
         super.remove(super.find(id));
     }
